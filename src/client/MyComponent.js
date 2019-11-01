@@ -5,8 +5,8 @@ export default class MyComponent extends React.Component {
         return (
             <div className="">
                 <div className="">
-                    <h1 className="">City Of Boston</h1>
-                    <h2 className="">Boston Waterways Board Applications </h2>
+                    <h1 className=""></h1>
+                    <h2 className=""> </h2>
                 </div>
             </div>
         );
