@@ -5,13 +5,13 @@
 This is a Full-Stack React Email application that allows to submit a form via Formik, Nodemailer and Axios.
 
 ## How It's Made:
-This application is made with React, Formik, Axios, Bootstrap and Nodemailer.
+This application is made with React, Formik, Axios, Bootstrap, Node, Express, and MongoDB.
 
 ## Optimizations.
-The client side is finish, I need to complete the server side. Server is up and running but need to implement Axios and Nodemailer so I can send emails.
+The client side is finish, I need to complete the server side. Server is up and running but need to implement Axios and MongoDB so I can send emails.
 
 ## Lessons Learned:
-How to properly used NPM package formik and Typescript.
+How to properly used NPM package formik.
 
 ## portfolio:
 **WEBSITE:** https:/johnfleurimond.com
