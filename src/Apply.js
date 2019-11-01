@@ -75,14 +75,7 @@ class Apply extends Component {
             <Col xs='3' />
             <Col />
             <Col xs='auto'>
-              <Jumbotron>
-                <div className='mn p-a700'>
-                  <div className='b b-c p-a700'>
-                    <div className='str'>
-                      <div className='str-c'>
-                        <div className='str-t'>Email Me</div>
-                      </div>
-                    </div>
+                
 
                     <div className='b b-c p-a700'>
                     <Formik
@@ -121,7 +114,7 @@ class Apply extends Component {
                 onSubmit={(values, actions) => {
                   setTimeout(() => {
                     axios
-                    .post('/api/form', values, actions) // no try/catch here
+                    .post('/', values, actions) // no try/catch here
                     .then(response => {
                       console.log(response);
                     })
@@ -150,7 +143,6 @@ class Apply extends Component {
                     animationOut="slideOutDown"
                     isVisible
                   >
-                    <Jumbotron>
                       <div className="mn p-a700">
                         <div className="b b-c p-a700">
                           <div className="str">
@@ -160,7 +152,7 @@ class Apply extends Component {
                           </div>
 
                           <div className="b b-c p-a700"></div>
-                          <form action="/api/form" method="post" onSubmit={handleSubmit}>
+                          <form action="/" method="POST" onSubmit={handleSubmit}>
                             <div className="g">
                               <div className="sel">
                                 <label className="txt-l txt-l--sm">Prefix </label>
@@ -273,14 +265,11 @@ class Apply extends Component {
                           </form>
                         </div>
                       </div>
-                    </Jumbotron>
                   </Animated>
                 )}
                       />
                     </div>
-                  </div>
-                </div>
-              </Jumbotron>
+                
             </Col>
             <Col xs='3' />
           </Row>

@@ -7,16 +7,25 @@ router.route('/add').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => {
-  const firstName = req.body.firstName;
-  const middleName = req.body.middleName;
-  const lastName = req.body.lastName;
-  const phone = Number(req.body.username);
-  const email = req.body.email;
-  const confirmEmail = req.body.confirmEmail;
-  const comments = req.body.comment;
+router.route('/').post((req, res) => {
+  const firstName =  await req.body.firstName;
+  const middleName = await req.body.middleName;
+  const lastName = await req.body.lastName;
+  const phone = await Number(req.body.phone);
+  const email = await req.body.email;
+  const confirmEmail = await req.body.confirmEmail;
+  const comments = await req.body.comments;
+  const StreetAddress = await req.body.StreetAddress;
+  const unit = await req.body.unit;
+  const state = await req.body.state;
+  const city = await req.body.city;
+  const zip =  awaitreq.body.zip;
+  const typeOfDegree = await req.body.typeOfDegree;
+  const degreeAttained = await req.body.degreeAttained;
+  const educationalInstitution = await req.body.educationalInstitution;
+  const otherInformation = await req.body.otherInformation;
 
-  const newExercise = new Exercise({
+  const newExercise =  new Exercise({
     firstName,
     middleName,
     lastName,
@@ -24,12 +33,20 @@ router.route('/add').post((req, res) => {
     email,
     confirmEmail,
     comments,
+    StreetAddress,
+    unit,
+    state,
+    city,
+    zip,
+    typeOfDegree,
+    degreeAttained,
+    educationalInstitution,
+    otherInformation
   });
-
-  newExercise.save()
-  .then(() => res.json('Email added!'))
-   .catch(err => res.status(400).json('Error: ' + err));
-  console.log(res.json('Email added!'));
+  newExercise
+    .save()
+    .then(() => res.json("Email added to DB!"))
+    .catch(err => res.json("Error: " + err));
 });
 
 router.route('/:id').get((req, res) => {
