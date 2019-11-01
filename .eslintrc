@@ -1,0 +1,44 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true,
+    "node": true,
+    "amd": true,
+    "commonjs": true
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "jsx": true,
+    "ecmaVersion": 2017,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": [
+    "jest",
+    "prettier",
+    "react",
+    "@typescript-eslint/eslint-plugin",
+    "typescript"
+  ],
+  "extends": [
+    "airbnb",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+  },
+  "overrides": [
+    {
+      "files": [ "*.ts", "*.tsx" ],
+      "parser": "typescript-eslint-parser",
+      "rules": {
+        "no-unused-vars": 0,
+        "no-undef": 0
+      }
+    }
+  ]
+}
