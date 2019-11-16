@@ -114,7 +114,7 @@ class Apply extends Component {
                 onSubmit={(values, actions) => {
                   setTimeout(() => {
                     axios
-                    .post('/', values, actions) // no try/catch here
+                    .post('/api/form', values, actions) // no try/catch here
                     .then(response => {
                       console.log(response);
                     })
@@ -152,7 +152,7 @@ class Apply extends Component {
                           </div>
 
                           <div className="b b-c p-a700"></div>
-                          <form action="/" method="POST" onSubmit={handleSubmit}>
+                          <form action="/form" method="POST" onSubmit={handleSubmit}>
                             <div className="g">
                               <div className="sel">
                                 <label className="txt-l txt-l--sm">Prefix </label>
@@ -237,7 +237,7 @@ class Apply extends Component {
                               required
                             />
                             <hr className="hr hr--sq" />
-                            <h2>
+                            <h2 className='ta-c p-h200 t--intro'>
                               Please note it might take 1-3 days to respond back. Please
                               still fill this form out and I will get back to you ASAP!
                             </h2>
