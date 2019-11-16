@@ -14,6 +14,8 @@ This is completed, I would like to learn MySql next, I have dabbled in GraphQL, 
 How to properly use Formik, Using Axios to post that data onSubmit click of a button.
 Formik had cool props like errors and touched and used correctly when set up if a field is visited (touched) when you set up your Yup for object schema validation. It has an API that's pretty similar Joi / React PropTypes and this is a complementary package Formik) when it is blurred it will display the error you created. Here is an example of the code:
 
+With firstName being the initialValue passed thru to Formik from my higher order component I created. It now knows that that TextInput.js is a text input field that is named “firstName” and it is a string that is required and has a minimal of 2 characters, if the field is touched ( error={touched.firstName && errors.firstName} ) then blurred ( {handleBlur} ) it will display the message created in the .min function. Or touched and there was no onChange it will let you know that it is required as well.
+
 
 ```validationSchema={Yup.object().shape({
      firstName: Yup.string()
@@ -22,12 +24,9 @@ Formik had cool props like errors and touched and used correctly when set up if 
    })}```
 
 
-
-With firstName being the initialValue passed thru to Formik from my higher order component I created. It now knows that that TextInput.js is a text input field that is named “firstName” and it is a string that is required and has a minimal of 2 characters, if the field is touched ( error={touched.firstName && errors.firstName} ) then blurred ( {handleBlur} ) it will display the message created in the .min function. Or touched and there was no onChange it will let you know that it is required as well.
-
 Most importantly I learned how to set up Express and MongoDB in a file quiet quickly and setting up my package.json to have concurrently run both scripts for the backend and frontend servers.
 
-This wassn't totally smooth though because I had issues on hitting the routes from the front end to the backend. So for anyone in the future runs into this issue, remember when you set up your server file and it opens up on lets say port http://localhost:3030/ and your React app is on http://localhost:3000/ you have to post on the front end like so ` axios .post("localhost:3030/api/form", values, actions).then(response => {console.log(response); })` Because thats where your server is listening to.
+This wasn't totally smooth though because I had issues on hitting the routes from the front end to the backend. So for anyone in the future runs into this issue, remember when you set up your server file and it opens up on lets say port http://localhost:3030/ and your React app is on http://localhost:3000/ you have to post on the front end like so ` axios .post("localhost:3030/api/form", values, actions).then(response => {console.log(response); })` Because thats where your server is listening to.
 
 ```<form action="http://localhost:3030/api/form" method="POST" onSubmit={handleSubmit}>
     onSubmit={(values, actions) => {
