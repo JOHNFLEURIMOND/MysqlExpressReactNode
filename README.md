@@ -28,8 +28,7 @@ Most importantly I learned how to set up Express and MongoDB in a file quiet qui
 
 This wasn't totally smooth though because I had issues on hitting the routes from the front end to the backend. So for anyone in the future runs into this issue, remember when you set up your server file and it opens up on lets say port http://localhost:3030/ and your React app is on http://localhost:3000/ you have to post on the front end like so ` axios .post("localhost:3030/api/form", values, actions).then(response => {console.log(response); })` Because thats where your server is listening to.
 
-```<form action="http://localhost:3030/api/form" method="POST" onSubmit={handleSubmit}>
-    onSubmit={(values, actions) => {
+    ```onSubmit={(values, actions) => {
               setTimeout(() => {
                 axios
                 .post('/api/form', values, actions)
@@ -44,7 +43,9 @@ This wasn't totally smooth though because I had issues on hitting the routes fro
                 actions.setSubmitting(false);
               }, 400);
             }}
-```
+            
+            ```
+```<form action="http://localhost:3030/api/form" method="POST" onSubmit={handleSubmit}>```
 
 ```
 const express = require("express");
