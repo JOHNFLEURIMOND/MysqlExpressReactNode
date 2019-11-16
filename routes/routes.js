@@ -1,13 +1,14 @@
 const router = require('express').Router();
 let Exercise = require('../models/routes.model');
 
-router.route('/form').get((req, res) => {
+router.route('/api/form ').get((req, res) => {
   Exercise.find()
-    .then(exercises => res.json(exercises))
+    .then(Exercises => res.json(exercises))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/form').post((req, res) => {
+
+router.route('/api/form').post((req, res) => {
   const firstName =   req.body.firstName;
   const middleName =  req.body.middleName;
   const lastName =  req.body.lastName;
@@ -63,7 +64,7 @@ router.route('/:id').delete((req, res) => {
 
 router.route('/form/:id').post((req, res) => {
   Exercise.findById(req.params.id)
-    .then(exercise => {
+    .then(Exercise => {
       exercise.firstName = req.body.firstName;
       exercise.middleName = req.body.middleName;
       exercise.lastName = req.body.lastName;

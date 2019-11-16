@@ -13,7 +13,7 @@ const exerciseSchema = new Schema({
   StreetAddress:{ type: String, required: true },
   unit:{ type: Number, required: true },
   city:{ type: String, required: true },
-  state:{ type: Number, required: true },
+  state:{ type: String, required: true },
   typeOfDegree:{ type: String, required: true },
   degreeAttained:{ type: String, required: true },
   educationalInstitution: { type: String, required: true },
