@@ -44,8 +44,8 @@ This wasn't totally smooth though because I had issues on hitting the routes fro
                 actions.setSubmitting(false);
               }, 400);
             }}
-
-<form action="http://localhost:3030/api/form" method="POST" onSubmit={handleSubmit}>```
+            
+action="http://localhost:3030/api/form" method="POST" ```
 
 ```const express = require("express");
 const cors = require("cors");
