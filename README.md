@@ -42,9 +42,7 @@ This wasn't totally smooth though because I had issues on hitting the routes fro
                 alert(JSON.stringify(values, null, 2));
                 actions.setSubmitting(false);
               }, 400);
-            }}
-            
-            ```
+            }}```
 ```<form action="http://localhost:3030/api/form" method="POST" onSubmit={handleSubmit}>```
 
 ```
