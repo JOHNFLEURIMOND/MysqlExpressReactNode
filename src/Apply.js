@@ -10,9 +10,9 @@ import {
   Col,
   Jumbotron,
 } from 'reactstrap'
-import CommentInput from './client/common/CommentInput'
-import TextInput from './client/common/TextInput'
-import Checkbox from './client/common/Checkbox'
+import CommentInput from './client/components/CommentInput'
+import TextInput from './client/components/TextInput'
+import Checkbox from './client/components/Checkbox'
 
 
 class Apply extends Component {
