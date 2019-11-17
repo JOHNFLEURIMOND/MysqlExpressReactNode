@@ -1,7 +1,9 @@
 const Sequelize = require('sequelize');
 const db = {};
-const sequelize = new Sequelize('John Fleurimond', 'root', '', {
+
+const sequelize = new Sequelize('acme', 'root', 'Hellodear83!', {
     host: 'localhost',
+    port: '3306',
     dialect: 'mysql',
     operatorsAliases: false,
 
@@ -12,6 +14,7 @@ const sequelize = new Sequelize('John Fleurimond', 'root', '', {
         idle: 10000,
     },
 });
+
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
