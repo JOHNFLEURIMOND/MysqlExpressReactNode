@@ -33,21 +33,21 @@ var Users = require('./routes/Users')
 
 app.use('/users', Users)
 
-// var mysqlConnection = mysql.createConnection({
-//     host: 'localhost/8080',
-//     user: 'root',
-//     password: 'Hellodear83!',
-//     database: 'acme',
-//     multipleStatements: true,
-// });
+var mysqlConnection = mysql.createConnection({
+    host: 'localhost/8080',
+    user: 'root',
+    password: 'Hellodear83!',
+    database: 'acme',
+    multipleStatements: true,
+});
 
-// mysqlConnection.connect(err => {
-//     if (!err) {
-//         console.log('Database is connected ... JF');
-//     } else {
-//         console.log('Error connecting database ... JF');
-//     }
-// });
+mysqlConnection.connect(err => {
+    if (!err) {
+        console.log('Database is connected ... JF');
+    } else {
+        console.log('Error connecting database ... JF');
+    }
+});
 
 app.post('/api/form', function (req, res) {
 
