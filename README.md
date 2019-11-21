@@ -5,13 +5,13 @@
 ![ReactEmail](public/App.png)
 
 # How It's Made :nut_and_bolt:🔨 :hammer::wrench::
- This application is written with React.js, Express, Passport.
+ This application built with React.js, Express, Node, Passport, & Using MySql for a database.
 
 ## Optimizations.
 Finish the app, I got the backend going and my tables in mysql created now I need to insert the data.
 
  # How It's Works:white_check_mark::
-1.) A user can send form data to Mongo DB Atlas.
+1.) A user can send form data to MySql Databse.
 
 2.) User can see the json data once submit as an alert!
 
