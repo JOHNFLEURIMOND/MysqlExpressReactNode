@@ -142,9 +142,16 @@ export default class AddGameForm extends Component {
 }
 ```
 
-## Express, Nodemon, Body-Parser
+## Express, Nodemon, Body-Parser, Cors
 
-The first thing I wanted to do is to create a server where browsers can connect to. We can do so with the help of a listen method provided by Express and using Nodemon to restart the server automatically whenever I or the user save a file that the server uses.
+The first thing I wanted to do is to create a server where browsers can connect to. We can do so with the help of a listen method provided by Express You define routing using methods of the Express app object that correspond to HTTP methods; for example, app.get() to handle GET requests and app.post to handle POST requests. For a full list, see app.METHOD. You can also use app.all() to handle all HTTP methods and app.use() to specify middleware as the callback function and using Nodemon to restart the server automatically whenever I or the user save a file that the server uses.
+
+```const express = require('express');
+const app = express();
+
+app.use(express.json());
+```
+
 ```//------
 app.listen(8080, function() {
   console.log('listening on 3000')
@@ -167,9 +174,22 @@ const bodyParser= require('body-parser')
 const app = express()
 
 ```//------
-app.use(bodyParser.urlencoded({extended: true}))
-
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+    })
+);
 // All your handlers here...
+```
+A request for a resource (like an image or a font) outside of the origin is known as a cross-origin request. CORS (cross-origin resource sharing) manages cross-origin requests.
+
+Cross-origin requests, however, that means servers must implement ways to handle requests from origins outside of their own. CORS allows servers to specify who (i.e., which origins) can access the assets on the server, among many other things.
+
+The CORS standard is needed because it allows servers to specify not just who can access its assets, but also how the assets can be accessed.
+
+```const cors = require('cors');
+
+app.use(cors());
 ```
 
 ## MySql
