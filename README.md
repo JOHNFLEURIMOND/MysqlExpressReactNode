@@ -146,13 +146,15 @@ export default class AddGameForm extends Component {
 
 The first thing I wanted to do is to create a server where browsers can connect to. We can do so with the help of a listen method provided by Express and using Nodemon to restart the server automatically whenever I or the user save a file that the server uses.
 ```//------
-app.listen(3000, function() {
+app.listen(8080, function() {
   console.log('listening on 3000')
 })
 ```
 or 
 
 ```//------
+const PORT = process.env.PORT || 8080;
+
 app.listen(PORT, () => {
     console.log(`Our app is running on port ${PORT}`);
 });
