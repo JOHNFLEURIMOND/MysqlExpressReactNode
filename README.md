@@ -26,7 +26,10 @@ I also learned `Sequelize ORM` Sequelize is a promise-based Object-Relational-Ma
 This is a MERN-Stack Email application that allows data to be submit via Formik and Yup validation. As you may know, React is a JavaScript library for building user interfaces. That’s it. It’s a way to use JavaScript to define UI elements based on user-defined properties and internal state. 
 
 like so:
-```import React, { Component } from 'react'
+
+
+```//------
+import React, { Component } from 'react'
  
 export default class SimpleForm extends Component {
   state = {
@@ -64,7 +67,8 @@ export default class SimpleForm extends Component {
 With Formik, You can use it as a higher-order component or a render callback (also applicable as a child function). This allows for greater flexibility in the props and state, as well as enhanced composability. There is also no need to track the state of the form elements explicitly. You can allow your form to handle itself, which is one of the key elements of React and a component-based architecture.Formik leans on Yup for validation. This provides a simple, yet powerful, way to validate an object schema for your form controls. The validationSchema prop takes a Yup schema or a function that returns one. There are many types of validators, such as for objects, strings, numbers, dates, etc. You can also create your own. The validators can be chained to allow precise constraints for acceptable values.
 
 
-```import React, { Component } from 'react'
+```//------
+import React, { Component } from 'react'
 import TextInput from './TextInputFormik'
 import { Formik, Form, Field } from 'formik'
 import Yup from 'yup'
@@ -141,13 +145,15 @@ export default class AddGameForm extends Component {
 ## Express, Nodemon, Body-Parser
 
 The first thing I wanted to do is to create a server where browsers can connect to. We can do so with the help of a listen method provided by Express and using Nodemon to restart the server automatically whenever I or the user save a file that the server uses.
-```app.listen(3000, function() {
+```//------
+app.listen(3000, function() {
   console.log('listening on 3000')
 })
 ```
 or 
 
-```app.listen(PORT, () => {
+```//------
+app.listen(PORT, () => {
     console.log(`Our app is running on port ${PORT}`);
 });
 ```
@@ -158,14 +164,16 @@ const express = require('express')
 const bodyParser= require('body-parser')
 const app = express()
 
-```app.use(bodyParser.urlencoded({extended: true}))
+```//------
+app.use(bodyParser.urlencoded({extended: true}))
 
 // All your handlers here...
 ```
 
 ## MySql
 To connect to the databse it says to do it  like so but I am stuck and currently troubleshooting that.
-```var mysqlConnection = mysql.createConnection({
+```//------
+var mysqlConnection = mysql.createConnection({
     host: 'localhost/8080',
     user: 'root',
     password: 'Hellodear83!',
@@ -184,7 +192,8 @@ mysqlConnection.connect(err => {
 
 Just like mongoDB, In MySql you have to create a schema to define the user
 
-```const Sequelize = require('sequelize');
+```//------
+const Sequelize = require('sequelize');
 const db = require('../database/db.js');
 
 module.exports = db.sequelize.define(
