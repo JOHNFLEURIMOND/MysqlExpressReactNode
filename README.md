@@ -138,6 +138,85 @@ export default class AddGameForm extends Component {
 }
 ```
 
+## Express, Nodemon, Body-Parser
+
+The first thing I wanted to do is to create a server where browsers can connect to. We can do so with the help of a listen method provided by Express and using Nodemon to restart the server automatically whenever I or the user save a file that the server uses.
+```app.listen(3000, function() {
+  console.log('listening on 3000')
+})
+```
+or 
+
+```app.listen(PORT, () => {
+    console.log(`Our app is running on port ${PORT}`);
+});
+```
+
+Express allows us to add middleware like body-parser to our application with the use method. You’ll hear the term middleware a lot when dealing with Express. These things are basically plugins that change the request or response object before they get handled by our application. Make sure you place body-parser before your CRUD handlers!
+
+const express = require('express')
+const bodyParser= require('body-parser')
+const app = express()
+
+```app.use(bodyParser.urlencoded({extended: true}))
+
+// All your handlers here...
+```
+
+## MySql
+To connect to the databse it says to do it  like so but I am stuck and currently troubleshooting that.
+```var mysqlConnection = mysql.createConnection({
+    host: 'localhost/8080',
+    user: 'root',
+    password: 'Hellodear83!',
+    database: 'acme',
+    multipleStatements: true,
+});
+
+mysqlConnection.connect(err => {
+    if (!err) {
+        console.log('Database is connected ... JF');
+    } else {
+        console.log('Error connecting database ... JF');
+    }
+});
+```
+
+Just like mongoDB, In MySql you have to create a schema to define the user
+
+```const Sequelize = require('sequelize');
+const db = require('../database/db.js');
+
+module.exports = db.sequelize.define(
+    'user',
+    {
+        id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        firstName: {
+            type: Sequelize.STRING,
+        },
+        middleName: {
+            type: Sequelize.STRING,
+        },
+        lastName: {
+            type: Sequelize.STRING,
+        },
+        phone: {
+            type: Sequelize.INTEGER,
+        },
+        created: {
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW,
+        },
+    },
+    {
+        timestamps: false,
+    }
+);
+```
 
 
 # Portfolio :open_file_folder::
