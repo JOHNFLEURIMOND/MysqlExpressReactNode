@@ -193,7 +193,42 @@ app.use(cors());
 ```
 
 ## MySql
-To connect to the databse it says to do it  like so but I am stuck and currently troubleshooting that.
+I would say it wasn't that hard to set up everything but MySQL is a database management system. A database is a structured collection of data, MySql is a Software delivers a very fast, multithreaded, multi-user, and robust SQL (Structured Query Language). It may be anything from a simple shopping list to a picture gallery or the vast amounts of information in a corporate or non-corperate network. MySQL databases are relational. A relational database stores data in separate tables rather than putting all the data in one big storeroom. The database structures are organized into physical files optimized for speed. The logical model, with objects such as databases, tables, views, rows, and columns, offers a flexible programming environment. 
+
+To use MySql you have to first download the community version and have created a root password for your account.  To create a database you have to log via command line by typing this command.. `mysql -u root -p`, I learned that if you get a command not found you can add the path by entering these commands:
+
+# Current Session
+`export PATH=${PATH}:/usr/local/mysql/bin`
+# Permanantly
+`echo 'export PATH="/usr/local/mysql/bin:$PATH"' >> ~/.bash_profile`
+
+Once logged in, you could create a database query by entering this command `CREATE DATABASE test;` and to use it `USE test;` but to delete `DROP DATABASE test;`.
+
+To Create a user query it is just as easy. 
+```CREATE TABLE users(
+id INT AUTO_INCREMENT,
+   first_name VARCHAR(100),
+   last_name VARCHAR(100),
+   email VARCHAR(50),
+   password VARCHAR(20),
+   location VARCHAR(100),
+   dept VARCHAR(100),
+   is_admin TINYINT(1),
+   register_date DATETIME,
+   PRIMARY KEY(id)
+);
+```
+
+& to show this table `SHOW USERS;` or `DESCRIBE USERS;` will show you the users table that we created in the console the and to delete the table users enter `DROP TABLE USERS;`
+
+To insert data Insert Row / Record query
+
+```INSERT INTO users (first_name, last_name, email, password, location, dept, is_admin, register_date) values ('John', 'Fleurimond', 'Boston@gmail.com', '02124','Massachusetts', 'development', 1, now());
+```
+
+
+That was easy, the hard part was to connect the back end using Node, Express, Sequelize which I never used before but Sequelize is a  ORM or Object Relation Mapping is a process of mapping between objects and relation database systems. An ORM acts like an interface between two system. Sequelize is a promise-based ORM for Node.js apps that use Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server. Just like Mongoose is for MongoDB (Documents), which is a non-relational database vs MySQL is relational (Tables) but less about that and more about the code...
+
 ```//------
 var mysqlConnection = mysql.createConnection({
     host: 'localhost/8080',
@@ -212,7 +247,7 @@ mysqlConnection.connect(err => {
 });
 ```
 
-Just like mongoDB, In MySql you have to create a schema to define the user
+Just like Mongoose does for mongoDB, In MySql you have to create a schema to define the user using Sequelize.
 
 ```//------
 const Sequelize = require('sequelize');
@@ -248,6 +283,8 @@ module.exports = db.sequelize.define(
     }
 );
 ```
+
+
 
 
 # Portfolio :open_file_folder::
