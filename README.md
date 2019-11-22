@@ -193,14 +193,14 @@ const cors = require('cors');
 app.use(cors());
 ```
 
-## MySql
+# MySql
 I would say it wasn't that hard to set up everything but MySQL is a database management system. A database is a structured collection of data, MySql is a Software delivers a very fast, multithreaded, multi-user, and robust SQL (Structured Query Language). It may be anything from a simple shopping list to a picture gallery or the vast amounts of information in a corporate or non-corperate network. MySQL databases are relational. A relational database stores data in separate tables rather than putting all the data in one big storeroom. The database structures are organized into physical files optimized for speed. The logical model, with objects such as databases, tables, views, rows, and columns, offers a flexible programming environment. 
 
 To use MySql you have to first download the community version and have created a root password for your account.  To create a database you have to log via command line by typing this command.. `mysql -u root -p`, I learned that if you get a command not found you can add the path by entering these commands:
 
-# Current Session
+### Current Session
 `export PATH=${PATH}:/usr/local/mysql/bin`
-# Permanantly
+### Permanantly
 `echo 'export PATH="/usr/local/mysql/bin:$PATH"' >> ~/.bash_profile`
 
 Once logged in, you could create a database query by entering this command `CREATE DATABASE test;` and to use it `USE test;` but to delete `DROP DATABASE test;`.
