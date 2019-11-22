@@ -43,9 +43,9 @@ var mysqlConnection = mysql.createConnection({
 
 mysqlConnection.connect(err => {
     if (!err) {
-        console.log('Database is connected ... JF');
+        console.log('Database is connected 💯 💯 💯 😀👍 📈... JF');
     } else {
-        console.log('Error connecting database ... JF');
+        console.log('Error connecting database 😒 😒 😒 😒👎 📉 ... JF');
     }
 });
 
