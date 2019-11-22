@@ -15,15 +15,12 @@ Finish the app, I got the backend going and my tables in mysql created now I nee
 
 2.) User can see the json data once submit as an alert!
 
-## Lessons Learned :mortar_board::
+# My Awesome Project 🖥 & Lessons Learned :mortar_board:  
 How to use MySQL and I am getting better and better with Node and Express, the more i have to buid my own server.
+This is a MERN-Stack Email application that allows data to be submit via Formik and Yup validation. As you may know, React is a JavaScript library for building user interfaces. That’s it. It’s a way to use JavaScript to define UI elements based on user-defined properties and internal state. 
+
 
 I also learned `Sequelize ORM` Sequelize is a promise-based Object-Relational-Mappers for Node.js and io.js. It supports the dialects PostgreSQL, MySQL, MariaDB, SQLite and MSSQL and features solid transaction support which was perfect for this app.
-
-
- 
-# My Awesome Project 🖥
-This is a MERN-Stack Email application that allows data to be submit via Formik and Yup validation. As you may know, React is a JavaScript library for building user interfaces. That’s it. It’s a way to use JavaScript to define UI elements based on user-defined properties and internal state. 
 
 like so:
 
@@ -146,7 +143,9 @@ export default class AddGameForm extends Component {
 
 The first thing I wanted to do is to create a server where browsers can connect to. We can do so with the help of a listen method provided by Express You define routing using methods of the Express app object that correspond to HTTP methods; for example, app.get() to handle GET requests and app.post to handle POST requests. Like app.METHOD or You can also use app.all() to handle all HTTP methods and app.use() to specify middleware as the callback function and using Nodemon to restart the server automatically whenever I or the user save a file that the server uses.
 
-```const express = require('express');
+```//------
+
+const express = require('express');
 const app = express();
 
 app.use(express.json());
@@ -169,11 +168,11 @@ app.listen(PORT, () => {
 
 Express allows us to add middleware like body-parser to our application with the use method. You’ll hear the term middleware a lot when dealing with Express. These things are basically plugins that change the request or response object before they get handled by our application. Make sure you place body-parser before your CRUD handlers!
 
+```//------
 const express = require('express')
 const bodyParser= require('body-parser')
 const app = express()
 
-```//------
 app.use(
     bodyParser.urlencoded({
         extended: true,
@@ -187,7 +186,9 @@ Cross-origin requests, however, that means servers must implement ways to handle
 
 The CORS standard is needed because it allows servers to specify not just who can access its assets, but also how the assets can be accessed.
 
-```const cors = require('cors');
+```//------
+
+const cors = require('cors');
 
 app.use(cors());
 ```
@@ -205,7 +206,9 @@ To use MySql you have to first download the community version and have created a
 Once logged in, you could create a database query by entering this command `CREATE DATABASE test;` and to use it `USE test;` but to delete `DROP DATABASE test;`.
 
 To Create a user query it is just as easy. 
-```CREATE TABLE users(
+
+```//------
+CREATE TABLE users(
 id INT AUTO_INCREMENT,
    first_name VARCHAR(100),
    last_name VARCHAR(100),
@@ -223,7 +226,8 @@ id INT AUTO_INCREMENT,
 
 To insert data Insert Row / Record query you have to put it in the same order as the create table query:
 
-```INSERT INTO users (first_name, last_name, email, password, location, dept, is_admin, register_date) values ('John', 'Fleurimond', 'Boston@gmail.com', '02124','Massachusetts', 'development', 1, now());
+```//------
+INSERT INTO users (first_name, last_name, email, password, location, dept, is_admin, register_date) values ('John', 'Fleurimond', 'Boston@gmail.com', '02124','Massachusetts', 'development', 1, now());
 ```
 
 
