@@ -7,7 +7,7 @@
 # How It's Made :nut_and_bolt:🔨 :hammer::wrench::
  This application built with React.js, Express, Node, Passport, & Using MySql for a database.
 
-## Optimizations.
+## Optimizations📶.
 Finish the app, I got the backend going and my tables in mysql created now I need to insert the data.
 
  # How It's Works:white_check_mark::
@@ -22,7 +22,7 @@ I also learned `Sequelize ORM` Sequelize is a promise-based Object-Relational-Ma
 
 
  
-# My Awesome Project
+# My Awesome Project 🖥
 This is a MERN-Stack Email application that allows data to be submit via Formik and Yup validation. As you may know, React is a JavaScript library for building user interfaces. That’s it. It’s a way to use JavaScript to define UI elements based on user-defined properties and internal state. 
 
 like so:
@@ -221,7 +221,7 @@ id INT AUTO_INCREMENT,
 
 & to show this table `SHOW USERS;` or `DESCRIBE USERS;` will show you the users table that we created in the console the and to delete the table users enter `DROP TABLE USERS;`
 
-To insert data Insert Row / Record query
+To insert data Insert Row / Record query you have to put it in the same order as the create table query:
 
 ```INSERT INTO users (first_name, last_name, email, password, location, dept, is_admin, register_date) values ('John', 'Fleurimond', 'Boston@gmail.com', '02124','Massachusetts', 'development', 1, now());
 ```
@@ -289,7 +289,7 @@ module.exports = db.sequelize.define(
 
 # Portfolio :open_file_folder::
 
-** :computer:   WEBSITE:** [John Fleurimond](http://johnfleurimond.com)
+** :computer: 🇭🇹  WEBSITE:** [John Fleurimond](http://johnfleurimond.com)
 
 # How To Get It Started :arrow_forward: :
 
