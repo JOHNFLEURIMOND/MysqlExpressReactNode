@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default class Checkbox extends React.Component{
-    render() {
-        return (
-            <label className="cb">
-             <input
+export default class Checkbox extends React.Component {
+  render() {
+    return (
+      <label className="cb">
+        <input
           name={this.props.name}
           value={this.props.value}
           required={this.props.required}
@@ -18,7 +18,7 @@ export default class Checkbox extends React.Component{
           <div className="t--subinfo t--err m-t100">{this.props.error}</div>
         )}
         <span className="cb-l">{this.props.title}</span>
-          </label>
-        );
-    }
+      </label>
+    );
+  }
 }
