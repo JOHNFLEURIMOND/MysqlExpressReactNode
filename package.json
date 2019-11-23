@@ -2,6 +2,7 @@
   "name": "mysqlmern",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "axios": "^0.18.0",
     "bcrypt": "^3.0.6",
@@ -12,6 +13,7 @@
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "formik": "^1.5.8",
+    "http-proxy-middleware": "^0.19.1",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
     "mongoose": "^5.6.9",
@@ -46,8 +48,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "nodemon server.js",
-    "prettier": "prettier --write src/**/*.{ts,tsx,js,css}",
-    "prettier-watch": "onchange  '**/*.{ts,tsx,js,css}' -- prettier --write {{changed}}",
+    "prettier": "prettier --write src/**/*.{ts,tsx,js}",
+    "prettier-watch": "onchange  '**/*.{{ts,tsx,js,jsx,css}' -- prettier --write {{changed}}",
     "client": "react-scripts start --prefix src",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },

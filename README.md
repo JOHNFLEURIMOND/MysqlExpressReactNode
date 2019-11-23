@@ -16,14 +16,7 @@ Finish the app, I got the backend going and my tables in mysql created now I nee
 2.) User can see the json data once submit as an alert!
 
 # My Awesome Project 🖥 & Lessons Learned :mortar_board:  
-How to use MySQL and I am getting better and better with Node and Express, the more i have to buid my own server.
-This is a MERN-Stack Email application that allows data to be submit via Formik and Yup validation. As you may know, React is a JavaScript library for building user interfaces. That’s it. It’s a way to use JavaScript to define UI elements based on user-defined properties and internal state. 
-
-
-I also learned `Sequelize ORM` Sequelize is a promise-based Object-Relational-Mappers for Node.js and io.js. It supports the dialects PostgreSQL, MySQL, MariaDB, SQLite and MSSQL and features solid transaction support which was perfect for this app.
-
-like so:
-
+I learned how to use MySQL and I am getting better and better with Node and Express, the more I have to buid my own server.This is a MERN-Stack Email application that allows data to be submit via Formik and Yup validation. As you may know, React is a JavaScript library for building user interfaces. That’s it. It’s a way to use JavaScript to define UI elements based on user-defined properties and internal state. Let me talk about the Frameworks I used and I am going to show you some examples.
 
 ```//------
 import React, { Component } from 'react'
@@ -167,6 +160,7 @@ app.listen(PORT, () => {
 ```
 
 Express allows us to add middleware like body-parser to our application with the use method. You’ll hear the term middleware a lot when dealing with Express. These things are basically plugins that change the request or response object before they get handled by our application. Make sure you place body-parser before your CRUD handlers!
+// Parse incoming requests data (https://github.com/expressjs/body-parser)
 
 ```//------
 const express = require('express')
@@ -233,24 +227,6 @@ INSERT INTO users (first_name, last_name, email, password, location, dept, is_ad
 
 That was easy, the hard part was to connect the back end using Node, Express, Sequelize which I never used before but Sequelize is a  ORM or Object Relation Mapping is a process of mapping between objects and relation database systems. An ORM acts like an interface between two system. Sequelize is a promise-based ORM for Node.js apps that use Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server. Just like Mongoose is for MongoDB (Documents), which is a non-relational database vs MySQL is relational (Tables) but less about that and more about the code...
 
-```//------
-var mysqlConnection = mysql.createConnection({
-    host: 'localhost/8080',
-    user: 'root',
-    password: 'Hellodear83!',
-    database: 'acme',
-    multipleStatements: true,
-});
-
-mysqlConnection.connect(err => {
-    if (!err) {
-        console.log('Database is connected ... JF');
-    } else {
-        console.log('Error connecting database ... JF');
-    }
-});
-```
-
 Just like Mongoose does for mongoDB, In MySql you have to create a schema to define the user using Sequelize.
 
 ```//------
@@ -287,7 +263,23 @@ module.exports = db.sequelize.define(
     }
 );
 ```
+and connect to the database: 
 
+```const Sequelize = require('sequelize');
+
+module.exports =  new Sequelize('acme', 'root', 'Hellodear83!', {
+  host: 'localhost',
+  port: '3306',
+  dialect: 'mysql',
+
+  pool: {
+    max: 10,
+    min: 0,
+    acquire: 30000,
+    idle: 10000,
+  },
+});
+```
 
 
 
