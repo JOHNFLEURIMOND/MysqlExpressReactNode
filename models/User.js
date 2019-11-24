@@ -30,9 +30,6 @@ module.exports = db.define(
     confirmEmail: {
       type: Sequelize.STRING,
     },
-    comments: {
-      type: Sequelize.STRING,
-    },
     unit: {
       type: Sequelize.INTEGER,
     },
@@ -53,10 +50,6 @@ module.exports = db.define(
     },
     otherInformation: {
       type: Sequelize.STRING,
-    },
-    created: {
-      type: Sequelize.DATE,
-      defaultValue: Sequelize.NOW,
     },
   },
   {

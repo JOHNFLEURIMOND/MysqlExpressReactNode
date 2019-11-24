@@ -8,10 +8,10 @@
  This application built with React.js, Express, Node, Passport, & Using MySql for a database.
 
 ## Optimizations📶.
-Finish the app, I got the backend going and my tables in mysql created now I need to insert the data.
+The app is done, I would love to start diving deeper in Query Languages like `graphQL` and see if I can get a query with `getInitialProps` with `Next.js` so having the files on the server rending which renders React components on the server before the HTML. Automatic routing so I wouldnt have to set up react-router even though I got better with it. I just want to get back to it since it had its Benefits. 
 
  # How It's Works:white_check_mark::
-1.) A user can send form data to MySql Databse.
+1.) A user can send form data to MySql Database Table.
 
 2.) User can see the json data once submit as an alert!
 
@@ -280,7 +280,6 @@ module.exports =  new Sequelize('acme', 'root', 'Hellodear83!', {
   },
 });
 ```
-
 
 
 # Portfolio :open_file_folder::

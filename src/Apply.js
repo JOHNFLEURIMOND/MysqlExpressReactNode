@@ -5,9 +5,13 @@ import moment from 'moment';
 import axios from 'axios';
 import { Animated } from 'react-animated-css';
 import { Container, Row, Col, Jumbotron } from 'reactstrap';
-import CommentInput from './client/components/CommentInput';
+// import CommentInput from './client/components/CommentInput';
 import TextInput from './client/components/TextInput';
 import Checkbox from './client/components/Checkbox';
+
+
+const phoneRegExp = /(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]‌​)\s*)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)([2-9]1[02-9]‌​|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})\s*(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+)\s*)?$/i;
+
 
 class Apply extends Component {
   render() {
@@ -108,10 +112,9 @@ class Apply extends Component {
                       .min(3),
                     state: yup.string().required('Your State Name Is Required!'),
                     phone: yup
-                      .number()
-                      .required('Your Telephone Number Is Required!')
-                      .positive()
-                      .integer(),
+                    .string()
+                    .matches(phoneRegExp, 'Your Phone Number Is Not Valid')
+                    .required('Your State Name Is Required!'),
                     zip: yup
                       .string()
                       .required('Zip Code Is Required')
@@ -131,7 +134,6 @@ class Apply extends Component {
                     otherInformation: yup
                       .string()
                       .min(2, 'Other Information Needs To Be Valid'),
-                    comments: yup.string().required(),
                   })}
                   onSubmit={(values, actions) => {
                     setTimeout(() => {
@@ -398,14 +400,14 @@ class Apply extends Component {
                               still fill this form out and I will get back to you ASAP!
                             </h2>
 
-                            <hr className="hr hr--sq" />
+                            {/* <hr className="hr hr--sq" />
                             <CommentInput
                               name="comments"
                               placeholder="Other Comments You Would Like Us to Know."
                               value={values.comments}
                               onChange={handleChange}
                               onBlur={handleBlur}
-                            />
+                            /> */}
 
                             <div className="b">
                               <div className="m-v400 m-h200">
