@@ -48,7 +48,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "nodemon server.js",
-    "prettier": "prettier --write src/**/*.{ts,tsx,js}",
+    "prettier": "prettier --write .}",
     "prettier-watch": "onchange  '**/*.{{ts,tsx,js,jsx,css}' -- prettier --write {{changed}}",
     "client": "react-scripts start --prefix src",
     "dev": "concurrently \"npm run server\" \"npm run client\""
