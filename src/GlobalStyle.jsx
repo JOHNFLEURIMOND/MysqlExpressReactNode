@@ -1,37 +1,37 @@
+// src/GlobalStyle.jsx
+
 import { createGlobalStyle } from 'styled-components';
-import { colors, media } from './theme';
+import { darken } from 'polished';
+import FleurimondTheme from './theme';
 
 const GlobalStyle = createGlobalStyle`
-  /* Import Google Fonts */
-  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
   :root {
     --font-body: 'Lora', serif;
     --font-heading: 'Montserrat', sans-serif;
-    --font-size-base: 62.5%;
+    --font-size-base: 62.5%; /* 10px */
     --font-size-lg: 2.4rem;
     --font-size-md: 1.8rem;
     --font-size-sm: 1.6rem;
     --font-size-xs: 1.4rem;
     --font-weight-heading: 700;
     --font-weight-body: 400;
-    --color-background: ${colors.background};
-    --color-primary-text: ${colors.primaryText};
-    --color-accent: ${colors.accent};
-    --color-border: ${colors.border};
-    --color-button-primary-bg: ${colors.button.primary.backgroundColor};
-    --color-button-primary-text: ${colors.button.primary.color};
-    --color-shadow: ${colors.shadow};
+    --color-background: ${FleurimondTheme.colors.background};
+    --color-primary-text: ${FleurimondTheme.colors.primaryText};
+    --color-accent: ${FleurimondTheme.colors.error}; 
+    --color-border: ${FleurimondTheme.colors.error}; 
+    --color-button-primary-bg: ${FleurimondTheme.colors.button.primary.backgroundColor};
+    --color-button-primary-text: ${FleurimondTheme.colors.button.primary.color};
+    --color-shadow: ${FleurimondTheme.colors.shadow};
     --scrollbar-width: 1.5rem;
     --border-radius: 0.4rem;
-    --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --box-shadow: ${FleurimondTheme.colors.shadow};
   }
 
-  * {
+  /* Reset and Base Styles */
+  *, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: var(--font-body);
   }
 
   html {
@@ -40,9 +40,10 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    overflow-x: hidden;
+    font-family: var(--font-body);
     background-color: var(--color-background);
     color: var(--color-primary-text);
+    overflow-x: hidden;
     scrollbar-color: var(--color-accent) var(--color-background);
     scrollbar-width: thin;
   }
@@ -60,6 +61,7 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 8px;
   }
 
+  /* Headings */
   h1, h2, h3 {
     font-family: var(--font-heading);
     margin-bottom: 1rem;
@@ -80,23 +82,26 @@ const GlobalStyle = createGlobalStyle`
     font-weight: var(--font-weight-heading);
   }
 
+  /* Paragraphs */
   p {
     font-size: var(--font-size-xs);
     line-height: 1.6;
   }
 
+  /* Links */
   a {
     color: var(--color-accent);
     text-decoration: none;
     transition: color 0.3s ease;
   }
 
-  a:hover {
-    color: darken(var(--color-accent), 10%);
+  a:hover, a:focus {
+    color: ${darken(0.1, FleurimondTheme.colors.error)};
   }
 
+  /* Inputs and Textareas */
   input, textarea {
-    max-width: 50rem;
+    max-width: 100%;
     color: var(--color-primary-text);
     padding: 1.6rem 2.4rem;
     border: 1px solid var(--color-border);
@@ -110,29 +115,30 @@ const GlobalStyle = createGlobalStyle`
     outline: none;
   }
 
+  /* Submit Button */
   input[type="submit"] {
-    max-width: 16rem;
-    margin-top: 2rem;
+    max-width: 100%;
     background-color: var(--color-button-primary-bg);
     color: var(--color-button-primary-text);
     padding: 1.4rem 2.2rem;
-    border-style: solid;
-    border-width: 0.1rem;
+    border: 1px solid var(--color-button-primary-bg);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     text-transform: uppercase;
-    font-size: 1.8rem;
+    font-size: var(--font-size-md);
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
 
   input[type="submit"]:active {
-    background-color: darken(var(--color-button-primary-bg), 10%);
+    background-color: ${darken(0.1, FleurimondTheme.colors.button.primary.backgroundColor)};
   }
 
+  /* Layouts */
   .container {
     max-width: 120rem;
     margin: 0 auto;
+    padding: 0 2rem;
   }
 
   .grid {
@@ -152,6 +158,7 @@ const GlobalStyle = createGlobalStyle`
     grid-template-columns: 1fr 1.2fr 0.5fr 0.8fr;
   }
 
+  /* Common Heading */
   .common-heading {
     font-size: 3.8rem;
     font-weight: 600;
@@ -159,9 +166,10 @@ const GlobalStyle = createGlobalStyle`
     text-transform: capitalize;
   }
 
-  @media (max-width: ${media.tab}) {
+  /* Responsive Styles */
+  @media (max-width: ${FleurimondTheme.media.tabletS}) {
     .container {
-      padding: 0 2rem;
+      padding: 0 1rem;
     }
 
     .grid {
@@ -173,7 +181,7 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${FleurimondTheme.media.mobileS}) {
     html {
       font-size: 50%;
     }

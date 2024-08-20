@@ -1,140 +1,121 @@
-// ToggleSwitch.jsx
+import React from 'react';
+import styled from 'styled-components';
+import FleurimondTheme from '../theme'; // Import the theme
 
-import React, { useState } from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
-import GlobalStyle from './globalstyles'; // Import the global styles
-import FleurimondTheme from './theme'; // Import the theme
-
-// Define the ToggleSwitch styles
+// Styled components
 const Container = styled.div`
+  float: left;
+  width: 27.33%;
+  margin: 40px 3%;
   position: relative;
-  width: calc(var(--sz) * 4);
-  height: calc(var(--sz) * 2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
-const HiddenInput = styled.input.attrs({ type: 'checkbox' })`
-  display: none;
+const InputField = styled.input`
+  font:
+    15px/24px 'Lato',
+    Arial,
+    sans-serif;
+  color: ${FleurimondTheme.colors
+    .primaryText}; // High contrast text color for readability
+  width: 100%;
+  box-sizing: border-box;
+  letter-spacing: 1px;
+  border: 1px solid
+    ${props => (props.error ? FleurimondTheme.colors.error : '#ccc')}; // Error border color
+  padding: 7px 14px 9px;
+  transition: 0.4s;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
-const Label = styled.label`
+const FocusBorder = styled.span`
   position: absolute;
-  width: calc(var(--sz) * 4);
-  height: calc(var(--sz) * 2);
-  background: #fff;
-  border-radius: var(--sz);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 calc(var(--sz) * 0.5) 0 rgba(0, 0, 0, 0.25);
-  pointer-events: none;
-  transition: all 0.5s ease;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background-color: ${FleurimondTheme.colors.darkReds
+    .crimson}; // Crimson for focus border
+  transition: 0.2s;
+  transition-delay: 0.2s;
 
-  &:before,
-  &:after {
+  &::before,
+  &::after {
     content: '';
     position: absolute;
-    border-radius: 100%;
-    background-color: #fff;
-    mix-blend-mode: difference;
+    top: 0;
+    width: 2px;
+    height: 0;
+    background-color: ${FleurimondTheme.colors.darkReds
+      .crimson}; // Crimson for focus border
+    transition: 0.2s;
   }
 
-  &:before {
-    width: calc(var(--sz) * 0.5);
-    height: calc(var(--sz) * 0.5);
-    left: calc(var(--sz) * 0.75);
-    z-index: 3;
+  &::before {
+    left: 0;
+    transition-delay: 0.2s;
   }
 
-  &:after {
-    border-radius: var(--sz);
-    width: calc(var(--sz) * 0.25);
-    height: calc(var(--sz) * 0.75);
-    left: calc(var(--sz) * 2.85);
-  }
-`;
-
-const Thumb = styled.span`
-  position: absolute;
-  height: calc(calc(var(--sz) * 2) - calc(var(--sz) / 8));
-  top: calc(calc(var(--sz) / 10) + calc(var(--sz) / -25));
-  background: #111;
-  border-radius: var(--sz);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  z-index: 1;
-  overflow: hidden;
-  padding: calc(var(--sz) * 0.65);
-  animation: ${props => (props.checked ? 'go-right' : 'go-left')} var(--sp) ease
-    0s;
-  width: calc(var(--sz) * 1.875);
-  right: ${props =>
-    props.checked ? 'calc(var(--sz) * 0.075)' : 'calc(var(--sz) * 2.05)'};
-  pointer-events: all;
-  transition: all 0.5s ease;
-`;
-
-// Define keyframes for animations
-const keyframes = `
-  @keyframes go-left {
-    0% {
-      width: calc(var(--sz) * 1.875);
-      right: calc(var(--sz) * 0.075);
-    }
-    40%, 60% {
-      width: calc(var(--sz) * 3.85);
-      right: calc(var(--sz) * 0.075);
-    }
-    100% {
-      width: calc(var(--sz) * 1.875);
-      right: calc(var(--sz) * 2.05);
-    }
-  }
-
-  @keyframes go-right {
-    0% {
-      width: calc(var(--sz) * 1.875);
-      right: calc(var(--sz) * 2.05);
-    }
-    40%, 60% {
-      width: calc(var(--sz) * 3.85);
-      right: calc(var(--sz) * 0.075);
-    }
-    100% {
-      width: calc(var(--sz) * 1.875);
-      right: calc(var(--sz) * 0.075);
-    }
+  &::after {
+    right: 0;
+    top: auto;
+    bottom: 0;
+    transition-delay: 0.6s;
   }
 `;
 
-// Create a GlobalStyle component for keyframes
-const KeyframesStyle = createGlobalStyle`
-  ${keyframes}
+const InputWrapper = styled.div`
+  position: relative;
+
+  ${InputField}:focus ~ ${FocusBorder}::before,
+  ${InputField}:focus ~ ${FocusBorder}::after {
+    width: 100%;
+    transition: 0.2s;
+  }
+
+  ${InputField}:focus ~ ${FocusBorder}::after {
+    transition-delay: 0.2s;
+  }
 `;
 
-const ToggleSwitch = () => {
-  const [checked, setChecked] = useState(false);
+const ErrorText = styled.div`
+  color: ${FleurimondTheme.colors.error}; // Error color
+  font-size: 12px;
+  margin-top: 4px;
+`;
 
-  const handleChange = () => {
-    setChecked(!checked);
-  };
-
+// React functional component
+const StyledInput = ({
+  title,
+  name,
+  value,
+  onChange,
+  onBlur,
+  error,
+  required,
+}) => {
   return (
-    <>
-      <GlobalStyle /> {/* Apply global styles */}
-      <KeyframesStyle /> {/* Apply keyframes */}
-      <Container>
-        <HiddenInput id='btn' checked={checked} onChange={handleChange} />
-        <Label htmlFor='btn'>
-          <Thumb checked={checked} />
-        </Label>
-      </Container>
-    </>
+    <Container>
+      <InputWrapper>
+        <InputField
+          type='text'
+          name={name}
+          placeholder={title || 'Placeholder Text'}
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          error={error} // Pass error state
+          required={required}
+        />
+        <FocusBorder>
+          <i></i>
+        </FocusBorder>
+      </InputWrapper>
+      {error && <ErrorText>{error}</ErrorText>} {/* Display error message */}
+    </Container>
   );
 };
 
-export default ToggleSwitch;
+export default StyledInput;

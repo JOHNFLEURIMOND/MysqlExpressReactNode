@@ -1,3 +1,4 @@
+// server.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -17,39 +18,31 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Database connection
 db.authenticate()
-  .then(() => console.log('Database is connected 💯 💯 💯 😀👍 📈... JF'))
-  .catch(err =>
-    console.error('Error connecting database 😒 😒 😒 😒👎 📉 ... JF  ', err)
-  );
+  .then(() => console.log('Database connected successfully 💯'))
+  .catch(err => console.error('Error connecting to database:', err));
 
 // Sync User model
 db.User.sync()
-  .then(() =>
-    console.log('User Table Created Successfully! 💯 💯 💯 😀👍 📈... JF')
-  )
-  .catch(err =>
-    console.error('Not Getting User Table 😒 😒 😒 😒👎 📉 ... JF  ', err)
-  );
+  .then(() => console.log('User Table Created Successfully!'))
+  .catch(err => console.error('Error creating User Table:', err));
 
 // Route Handling
 app.use('/users', userRoutes);
 
-// Production setup
+// Serve static files from Vite build
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.resolve(__dirname, '../public'))); // Correct path to public directory
+  app.use(express.static(path.resolve(__dirname, '../dist'))); // Vite build output directory
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../public', 'index.html'));
+    res.sendFile(path.resolve(__dirname, '../dist', 'index.html')); // Vite build entry point
   });
 } else {
   app.get('*', (req, res) =>
-    res
-      .status(200)
-      .send({ message: 'Welcome to the beginning of nothingness.' })
+    res.status(200).send({ message: 'Development environment' })
   );
 }
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Our app is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });

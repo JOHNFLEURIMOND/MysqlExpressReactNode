@@ -1,25 +1,20 @@
-// vite.config.js
-
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  esbuild: {
-    loader: {
-      '.js': 'jsx', // Treat .js files as JSX
-      '.jsx': 'jsx', // Treat .jsx files as JSX
-    },
-  },
-  optimizeDeps: {
-    include: ['some-large-dependency'], // Add any large dependencies if needed
-  },
   build: {
     outDir: 'dist',
+    external: [
+      '@emotion/react', // Add @emotion/react to the external list if you don't want to include it in the bundle
+    ],
     rollupOptions: {
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'], // Split vendor code
+        },
+        globals: {
+          '@emotion/react': 'EmotionReact',
         },
       },
     },

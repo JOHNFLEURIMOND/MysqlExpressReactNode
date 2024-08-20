@@ -2,6 +2,10 @@
   "name": "mysqlmern",
   "version": "0.1.0",
   "private": true,
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
   "scripts": {
     "serve": "vite",
     "server": "node server/server.js",
@@ -12,22 +16,35 @@
     "prettier": "npx prettier --write .",
     "lint": "eslint --fix '**/*.{ts,tsx,js,jsx,css}'",
     "prettier-watch": "onchange '**/*.{ts,tsx,js,jsx,css}' -- prettier --write {{changed}}",
-    "push": "npm run prettier && rm -rf package-lock.json && rm -rf node_modules && git add . && git commit -m 'fix mysql and style' && git push",
+    "push": "npm run prettier && rm -rf package-lock.json && rm -rf node_modules && git add . && git commit -m 'fix onclick' && git push",
     "kill": "pkill -f node",
     "clean": "npm cache clean --force && npm run build"
   },
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "overrides": {
+    "isomorphic-fetch": {
+      "node-fetch": "^3.0.0"
+    }
+  },
   "dependencies": {
+    "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
+    "@react-spring/web": "^9.5.0",
     "@vitejs/plugin-react": "^4.3.1",
     "axios": "^1.7.4",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "bootstrap": "^5.3.3",
     "concurrently": "^8.2.2",
+    "core-js": "^3.38.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "formik": "^2.4.6",
+    "glob": "^11.0.0",
     "http-proxy-middleware": "^3.0.0",
     "jsonwebtoken": "^9.0.2",
     "moment": "^2.30.1",
@@ -36,12 +53,17 @@
     "nodemailer": "^6.9.14",
     "nodemon": "^3.1.4",
     "pg": "^8.12.0",
+    "polished": "^4.3.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
+    "react-hooks": "^1.0.1",
+    "react-icons": "^5.3.0",
+    "react-responsive": "^10.0.0",
+    "rimraf": "^6.0.1",
     "sequelize": "^6.37.3",
     "styled-components": "^6.1.12",
-    "vite": "^5.4.1",
+    "vite": "^5.4.2",
     "vite-plugin-svgr": "^4.2.0",
     "yup": "^1.4.0"
   },
@@ -57,6 +79,12 @@
     "prettier": "^3.3.3",
     "react-animated-css": "^1.2.1"
   },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "prettier"
+  ],
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --quiet"
   },

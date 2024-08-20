@@ -1,28 +1,26 @@
-const bcrypt = require('bcrypt');
-const cors = require('cors');
+// routes/users.js
 const express = require('express');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const db = require('../database/database'); // Updated path to database
-const users = express.Router();
+const db = require('../database/database.js'); // Correct path to database
+const router = express.Router();
 require('dotenv').config();
 
-process.env.SECRET_KEY = 'secret';
-
-users.use(cors());
+const SECRET_KEY = process.env.SECRET_KEY || 'secret';
 
 // Route to get all users
-users.get('/', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const users = await db.getAllUsers();
     res.json(users);
   } catch (err) {
-    console.error(err);
+    console.error('Error retrieving users:', err);
     res.status(500).send('Error retrieving users');
   }
 });
 
 // Route to register a new user
-users.post('/register', async (req, res) => {
+router.post('/register', async (req, res) => {
   try {
     const { email, password, ...userData } = req.body;
     const existingUser = await db.getUser({ email });
@@ -36,40 +34,38 @@ users.post('/register', async (req, res) => {
       res.status(400).json({ error: 'User already exists' });
     }
   } catch (err) {
-    console.error(err);
+    console.error('Error registering user:', err);
     res.status(500).send('Error registering user');
   }
 });
 
 // Route to authenticate a user
-users.post('/login', async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await db.getUser({ email });
 
     if (user && bcrypt.compareSync(password, user.password)) {
-      const token = jwt.sign(
-        { id: user.id, email: user.email },
-        process.env.SECRET_KEY,
-        { expiresIn: 1440 }
-      );
+      const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, {
+        expiresIn: '24h',
+      });
       res.json({ token });
     } else {
       res.status(400).json({ error: 'Invalid credentials' });
     }
   } catch (err) {
-    console.error(err);
+    console.error('Error logging in:', err);
     res.status(500).send('Error logging in');
   }
 });
 
 // Route to get a user by ID (requires token)
-users.get('/profile', async (req, res) => {
+router.get('/profile', async (req, res) => {
   try {
     const token = req.headers['authorization'];
     if (!token) return res.status(401).json({ error: 'No token provided' });
 
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    const decoded = jwt.verify(token, SECRET_KEY);
     const user = await db.getUser({ id: decoded.id });
 
     if (user) {
@@ -78,9 +74,9 @@ users.get('/profile', async (req, res) => {
       res.status(404).send('User not found');
     }
   } catch (err) {
-    console.error(err);
+    console.error('Error retrieving user:', err);
     res.status(500).send('Error retrieving user');
   }
 });
 
-module.exports = users;
+module.exports = router;

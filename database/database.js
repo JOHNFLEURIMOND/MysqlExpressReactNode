@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const moment = require('moment');
+require('dotenv').config();
 
 // Database configuration
 const sequelize = new Sequelize(
@@ -26,11 +26,11 @@ const User = sequelize.define(
     firstName: { type: Sequelize.STRING },
     middleName: Sequelize.STRING,
     lastName: { type: Sequelize.STRING },
-    phone: { type: Sequelize.INTEGER },
+    phone: { type: Sequelize.STRING }, // Changed to STRING for phone numbers
     streetAddress: Sequelize.STRING,
     email: { type: Sequelize.STRING, unique: true },
     confirmEmail: Sequelize.STRING,
-    unit: Sequelize.INTEGER,
+    unit: Sequelize.STRING, // Changed to STRING for unit
     city: Sequelize.STRING,
     state: Sequelize.STRING,
     zip: Sequelize.STRING,

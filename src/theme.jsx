@@ -1,89 +1,136 @@
-// src/utils/theme.js
+// src/theme.jsx
 
 export const colors = {
   // Primary Colors
-  background: '#F9F9F9', // Light gray background
-  primaryText: '#333333', // High contrast text for readability
+  background: '#F9F9F9',
+  primaryText: '#333333',
+  error: '#e74c3c',
 
-  // Secondary Colors
-  accent: '#236990', // Blue accent color
-  secondaryText: '#4A4A4A', // Secondary text color, slightly lighter than primary text
+  // Earthy Tones
+  earthy: {
+    darkGreen: '#132504',
+    mediumGreen: '#1f3613',
+    orange: '#ce5f15',
+    brown: '#704020',
+    deepBrown: '#682702',
+    lightGreen: '#4F6D3F',
+    peach: '#F6B67F',
+    beige: '#D0BFA3',
+    lightTan: '#A89F91',
+  },
 
-  // Additional Colors
-  border: '#DDDDDD', // Subtle border color for separation
-  hover: '#25abe2', // High contrast hover color for interactive elements
+  // Dark Reds and Pinks
+  darkReds: {
+    darkMaroon: '#250715',
+    deepPurple: '#2f0d33',
+    darkRed: '#6b2232',
+    crimson: '#7a1826',
+    brightRed: '#bc2034',
+    lavender: '#E3D6E3',
+    teal: '#004D40',
+    softRose: '#F2A7A5',
+    palePink: '#F4C6C6',
+    mutedRed: '#B04A52',
+  },
+
+  // Warm Tones
+  warmTones: {
+    deepBrown: '#59320a',
+    darkOrange: '#994900',
+    burntOrange: '#c45400',
+    mediumOrange: '#d17200',
+    lightPeach: '#f2e3d6',
+    warmGray: '#B5A7A0',
+    softYellow: '#F4C300',
+    coral: '#FF6F61',
+    tan: '#D9B38C',
+    ivory: '#F9F5F2',
+  },
 
   // Button Colors
   button: {
     primary: {
-      color: '#FFFFFF', // White text for primary button
-      backgroundColor: '#236990', // High contrast background for primary button
-      borderColor: '#236990',
+      color: '#FFFFFF',
+      backgroundColor: '#704020',
+      borderColor: '#704020',
 
       hover: {
-        backgroundColor: '#004a75', // Darker blue for hover to indicate interaction
-        borderColor: '#004a75',
+        backgroundColor: '#59320a',
+        borderColor: '#59320a',
       },
 
       disabled: {
-        backgroundColor: '#CCCCCC', // Gray background for disabled state
+        backgroundColor: '#CCCCCC',
         borderColor: '#CCCCCC',
-        color: '#8C8C8C', // Gray text for disabled state
+        color: '#8C8C8C',
       },
     },
 
     secondary: {
-      color: '#236990', // Blue text for secondary button
-      backgroundColor: '#FFFFFF', // White background for secondary button
-      borderColor: '#25abe2',
+      color: '#704020',
+      backgroundColor: '#FFFFFF',
+      borderColor: '#B5A7A0',
 
       hover: {
-        backgroundColor: '#E6F7FF', // Light blue background for hover
-        borderColor: '#25abe2',
-        color: '#25abe2',
+        backgroundColor: '#F2A7A5',
+        borderColor: '#B5A7A0',
+        color: '#B5A7A0',
       },
 
       disabled: {
         backgroundColor: '#FFFFFF',
-        borderColor: '#E6E6E6', // Light gray border for disabled state
-        color: '#E6E6E6', // Light gray text for disabled state
+        borderColor: '#E6E6E6',
+        color: '#E6E6E6',
       },
     },
   },
 
   // Footer Styles
   footer: {
-    backgroundColor: '#236990', // Dark blue background for footer
-    textColor: '#FFFFFF', // White text for readability in footer
+    backgroundColor: '#704020',
+    textColor: '#FFFFFF',
     padding: '2rem',
     textAlign: 'center',
 
     link: {
-      color: '#FFFFFF', // White color for links
+      color: '#FFFFFF',
       textDecoration: 'none',
       hover: {
-        textDecoration: 'underline', // Underline on hover for accessibility
+        textDecoration: 'underline',
       },
     },
   },
 
   // Shadows
-  shadow: '0 6px 12px rgba(0, 0, 0, 0.2)', // Slightly more pronounced shadow for depth
+  shadow: '0 6px 12px rgba(0, 0, 0, 0.2)',
 
   // Accessibility-specific Colors
   highContrast: {
-    text: '#000000', // Black text for high contrast
-    background: '#FFFFFF', // White background for high contrast
+    text: '#000000',
+    background: '#FFFFFF',
   },
 };
 
 // Define media breakpoints
 export const media = {
-  tab: '768px', // Tablet breakpoint
-  mobile: '480px', // Mobile breakpoint
+  mobileS: '320px',
+  mobileM: '375px',
+  mobileL: '425px',
+
+  tabletS: '600px',
+  tabletM: '768px',
+  tabletL: '1024px',
+
+  laptopS: '1280px',
+  laptopM: '1440px',
+  laptopL: '1600px',
+
+  desktopS: '1920px',
+  desktopL: '2560px',
+
+  extraLarge: '3840px',
 };
 
-// Export theme object containing colors and media
 const FleurimondTheme = {
   colors,
   media,
