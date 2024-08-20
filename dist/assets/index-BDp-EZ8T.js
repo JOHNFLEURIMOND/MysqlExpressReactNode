@@ -2184,7 +2184,7 @@ var uw = Ol((be, ve) => {
           t.call(r, i, s, a, o, e));
   }
   function jo(e) {
-    return typeof e == 'string' && e && ["'", '"'].indexOf(e.charAt(0)) !== -1;
+    return typeof e == 'string' && e && ['\'', '"'].indexOf(e.charAt(0)) !== -1;
   }
   function dm(e) {
     return e.match(um) && !e.match(Au);
@@ -4064,7 +4064,7 @@ attempted value: ${a}
           }
           t.set ||
             (t.set = () => {
-              throw Error("Can not rewrite read-only method '" + r + "'");
+              throw Error('Can not rewrite read-only method \'' + r + '\'');
             });
         }
       });
@@ -4371,7 +4371,7 @@ attempted value: ${a}
   function Ka(e) {
     const t = {
       '!': '%21',
-      "'": '%27',
+      '\'': '%27',
       '(': '%28',
       ')': '%29',
       '~': '%7E',
@@ -5654,9 +5654,9 @@ attempted value: ${a}
       return (
         '[Axios v' +
         ic +
-        "] Transitional option '" +
+        '] Transitional option \'' +
         o +
-        "'" +
+        '\'' +
         a +
         (n ? '. ' + n : '')
       );
@@ -8200,7 +8200,7 @@ attempted value: ${a}
   function M0(e) {
     if (e === void 0)
       throw new ReferenceError(
-        "this hasn't been initialised - super() hasn't been called"
+        'this hasn\'t been initialised - super() hasn\'t been called'
       );
     return e;
   }
@@ -9244,7 +9244,7 @@ object-assign
     Qb = function (e, t) {
       if (!e)
         throw new ReferenceError(
-          "this hasn't been initialised - super() hasn't been called"
+          'this hasn\'t been initialised - super() hasn\'t been called'
         );
       return t && (typeof t == 'object' || typeof t == 'function') ? t : e;
     },
