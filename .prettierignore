@@ -1,0 +1,9 @@
+node_modules/
+build/
+dist/
+public/
+*.css
+*.html
+*.json
+*.md
+**/__snapshots__/
