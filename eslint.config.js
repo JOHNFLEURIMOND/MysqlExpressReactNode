@@ -1,13 +1,12 @@
-import { defineFlatConfig } from 'eslint-define-config';
-import eslintPluginReact from 'eslint-plugin-react';
-import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
-import eslintPluginJest from 'eslint-plugin-jest';
-import eslintPluginPrettier from 'eslint-plugin-prettier';
-import eslintConfigAirbnb from 'eslint-config-airbnb';
-import eslintConfigAirbnbHooks from 'eslint-config-airbnb/hooks';
-import eslintConfigPrettier from 'eslint-config-prettier';
+import { defineFlatConfig } from 'eslint-define-config'; // Import defineFlatConfig from eslint-define-config
+import eslintPluginReact from 'eslint-plugin-react'; // Import eslint-plugin-react
+import eslintPluginReactHooks from 'eslint-plugin-react-hooks'; // Import eslint-plugin-react-hooks
+import eslintPluginJest from 'eslint-plugin-jest'; // Import eslint-plugin-jest
+import eslintPluginPrettier from 'eslint-plugin-prettier'; // Import eslint-plugin-prettier
+import eslintConfigAirbnb from 'eslint-config-airbnb'; // Import eslint-config-airbnb
+import eslintConfigAirbnbHooks from 'eslint-config-airbnb/hooks'; // Import eslint-config-airbnb/hooks
+import eslintConfigPrettier from 'eslint-config-prettier'; // Import eslint-config-prettier
 
-// Combine all rules and settings
 const airbnbConfig = {
   rules: eslintConfigAirbnb.rules,
   settings: eslintConfigAirbnb.settings,
@@ -25,7 +24,7 @@ export default defineFlatConfig([
   {
     languageOptions: {
       parserOptions: {
-        ecmaVersion: 2020,
+        ecmaVersion: 'latest',
         sourceType: 'module',
         ecmaFeatures: {
           jsx: true,
@@ -42,7 +41,7 @@ export default defineFlatConfig([
       ...airbnbConfig.rules,
       ...airbnbHooksConfig.rules,
       ...prettierConfig.rules,
-      quotes: ['error', 'single'], // Ensure this matches your code style
+      quotes: ['error', 'single'],
       indent: 'off',
       'no-console': 'off',
       semi: ['error', 'always'],
@@ -58,15 +57,18 @@ export default defineFlatConfig([
       },
     },
     ignores: [
-      '**/node_modules/**',
-      'build/',
-      'dist/',
-      'public/',
-      '*.css',
-      '*.html',
-      '*.json',
-      '*.md',
-      '**/__snapshots__/**',
+      '**/node_modules/**', // Ignore all node_modules directories
+      'build/', // Ignore build directories
+      'dist/', // Ignore dist directories
+      'public/', // Ignore public directories
+      '**/*.css', // Ignore all CSS files
+      '**/*.html', // Ignore all HTML files
+      '**/*.json', // Ignore all JSON files
+      '**/*.md', // Ignore all Markdown files
+      '**/__snapshots__/**', // Ignore all snapshot directories
+      '**/.next/**', // Ignore Next.js build directories
+      '**/.nuxt/**', // Ignore Nuxt.js build directories
+      '**/.cache/**', // Ignore cache directories
     ],
   },
 ]);
