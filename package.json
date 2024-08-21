@@ -8,7 +8,7 @@
     "dev": "npx concurrently \"vite\" \"npm run server\"",
     "build": "vite build",
     "preview": "vite preview",
-    "restart": "npm run clean && rm -rf package-lock.json && rm -rf node_modules && npm install --legacy-peer-deps && npx npm-check-updates -u && npm install --legacy-peer-deps",
+    "restart": "rm -rf package-lock.json && rm -rf node_modules && npm install --legacy-peer-deps && npx npm-check-updates -u && npm install --legacy-peer-deps && npm run clean &&  npm run serve",
     "lint": "npx eslint . --fix",
     "format": "prettier --write .",
     "fix": "npm run format && npm run lint",

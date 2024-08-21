@@ -1,4 +1,3 @@
-// src/client/TextInput.jsx
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
@@ -81,6 +80,7 @@ const TextInput = ({
   error = '',
   required = false,
   size = 'medium',
+  type = 'text', // Default type is 'text'
   ...rest
 }) => (
   <Container error={error}>
@@ -90,7 +90,7 @@ const TextInput = ({
       </label>
     )}
     <InputField
-      type='text'
+      type={type} // Set the input type
       name={name}
       placeholder={title || 'Placeholder Text'}
       value={value}
@@ -114,6 +114,7 @@ TextInput.propTypes = {
   error: PropTypes.string,
   required: PropTypes.bool,
   size: PropTypes.oneOf(['small', 'medium', 'large']),
+  type: PropTypes.string, // Add type prop
 };
 
 export default TextInput;

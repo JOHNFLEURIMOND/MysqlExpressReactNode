@@ -1,3 +1,5 @@
+// userModel.js
+
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
@@ -29,12 +31,11 @@ const User = sequelize.define(
     phone: { type: Sequelize.STRING },
     streetAddress: Sequelize.STRING,
     email: { type: Sequelize.STRING, unique: true },
-    confirmEmail: Sequelize.STRING,
     unit: Sequelize.STRING,
     city: Sequelize.STRING,
     state: Sequelize.STRING,
     zip: Sequelize.STRING,
-    password: { type: Sequelize.STRING }, // Added password field
+    password: { type: Sequelize.STRING }, // Store hashed password
     created: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW,
