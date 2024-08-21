@@ -13,7 +13,7 @@
     "format": "prettier --write .",
     "fix": "npm run format && npm run lint",
     "prettier-watch": "onchange '**/*.{ts,tsx,js,jsx,css}' -- prettier --write {{changed}}",
-    "push": "npm run fix && rm -rf package-lock.json && rm -rf node_modules && git add . && git commit -m 'fix onclick and data being sent.' && git push",
+    "push": "npm run fix && rm -rf package-lock.json && rm -rf node_modules && git add . && git commit -m 'fix onclick, deploy backend on different server.' && git push",
     "kill": "pkill -f node",
     "clean": "npm cache clean --force && npm run build"
   },
