@@ -1,24 +1,25 @@
-// src/index.jsx
 import React, { Suspense } from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
 import styled from 'styled-components';
 import TextInput from './client/TextInput';
-import Button from './client/Button';
+import Button from './client/Button'; // Import the updated Button component
 import Navbar from './client/Navbar';
 import { useSpring, animated } from '@react-spring/web';
 import FleurimondTheme from './theme';
+import { useNavigate } from 'react-router-dom';
 
 // Validation schema
 const phoneRegExp =
   /(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]‌​)\s*)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)([2-9]1[02-9]‌​|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})\s*(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+)\s*)?$/i;
 
-const validationSchema = yup.object().shape({
+const validationSchema = yup.object({
   firstName: yup
     .string()
     .required('First Name is required')
     .min(2, 'First Name must be at least 2 characters'),
+  middleName: yup.string(),
   lastName: yup
     .string()
     .required('Last Name is required')
@@ -30,8 +31,8 @@ const validationSchema = yup.object().shape({
   confirmEmail: yup
     .string()
     .email('Invalid email format')
-    .required('Confirm Email is required')
-    .oneOf([yup.ref('email')], 'Emails must match'),
+    .oneOf([yup.ref('email')], 'Emails must match')
+    .required('Confirm Email is required'),
   StreetAddress: yup
     .string()
     .min(2, 'Street Address must be at least 2 characters'),
@@ -66,7 +67,6 @@ const validationSchema = yup.object().shape({
     .min(2, 'Other Information must be at least 2 characters'),
 });
 
-// Extract colors from theme
 const { colors } = FleurimondTheme;
 
 const MainContent = styled.div`
@@ -83,13 +83,13 @@ const Title = styled.h1`
 `;
 
 const FormContainer = styled.div`
-  max-width: 1200px; // Adjusted max-width for better responsiveness
+  max-width: 1200px;
   margin: 0 auto;
   background: #ffffff;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: ${FleurimondTheme.colors.shadow};
-  box-sizing: border-box; // Ensures padding is included in width
+  box-sizing: border-box;
 `;
 
 const FormSection = styled.div`
@@ -98,68 +98,77 @@ const FormSection = styled.div`
 
 const FormGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(250px, 1fr)
-  ); // Responsive grid columns
-  gap: 1.5rem; // Spacing between grid items
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
 `;
 
 const ErrorMessage = styled.div`
   color: ${colors.error};
   font-size: 0.875rem;
-  margin-top: 0.5rem; // Spacing between input and error message
+  margin-top: 0.5rem;
 `;
 
-// Container for the select element
 const SelectContainer = styled.div`
   position: relative;
-  display: inline-block; // Change to inline-block to fit select to content width
+  display: inline-block;
 
   label {
     display: block;
-    margin-bottom: 0.5rem; // Space between label and select
+    margin-bottom: 0.5rem;
     font-size: 1rem;
-    color: ${FleurimondTheme.colors.primaryText}; // Use primary text color
+    color: ${colors.primaryText};
   }
 
   select {
-    display: inline; // Make select fit its content
+    display: inline;
     padding: 0.5rem;
-    border: 1px solid ${FleurimondTheme.colors.earthy.darkGreen}; // Using earthy dark green for border
+    border: 1px solid ${FleurimondTheme.colors.earthy.darkGreen};
     border-radius: 4px;
-    background-color: ${FleurimondTheme.colors
-      .background}; // Using earthy light green for background
-    color: ${FleurimondTheme.colors.primaryText}; // Text color
+    background-color: ${FleurimondTheme.colors.background};
+    color: ${FleurimondTheme.colors.primaryText};
     font-size: 1rem;
-    appearance: none; // Removes default select arrow
+    appearance: none;
     cursor: pointer;
     outline: none;
-    width: auto; // Fit to content width
-    min-width: 120px; // Ensure a minimum width for usability
+    width: auto;
+    min-width: 120px;
   }
 
   select option {
-    background-color: ${FleurimondTheme.colors.earthy
-      .darkGreen}; // Background for options
-    color: ${FleurimondTheme.colors.primaryText}; // Text color for options
+    background-color: ${FleurimondTheme.colors.earthy.darkGreen};
+    color: ${FleurimondTheme.colors.primaryText};
 
     &:hover,
     &:checked {
-      color: ${FleurimondTheme.colors.warmTones
-        .coral}; // Text color on hover/selected
-      background-color: ${FleurimondTheme.colors.warmTones
-        .lightPeach}; // Background color on hover/selected
+      color: ${FleurimondTheme.colors.warmTones.coral};
+      background-color: ${FleurimondTheme.colors.warmTones.lightPeach};
     }
   }
 `;
 
 const Index = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
   const animationProps = useSpring({
     opacity: 1,
     from: { opacity: 0 },
     config: { duration: 2200 },
   });
+
+  const handleSubmit = async (values, actions) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/users/register',
+        values
+      );
+      console.log('Response:', response);
+      alert('Form submitted successfully!');
+      navigate('/profile'); // Redirect to the profile page after successful submission
+    } catch (error) {
+      console.error('Error:', error.response);
+    } finally {
+      actions.setSubmitting(false);
+    }
+  };
 
   return (
     <>
@@ -184,14 +193,7 @@ const Index = () => {
             otherInformation: '',
           }}
           validationSchema={validationSchema}
-          onSubmit={(values, actions) => {
-            axios
-              .post('http://localhost:8080/users/register', values) // Corrected API endpoint
-              .then(response => console.log(response))
-              .catch(error => console.log(error.response));
-            alert('Form submitted successfully!');
-            actions.setSubmitting(false);
-          }}>
+          onSubmit={handleSubmit}>
           {({
             isSubmitting,
             handleSubmit,
@@ -206,7 +208,6 @@ const Index = () => {
               <animated.div style={animationProps}>
                 <FormContainer>
                   <Title>Contact Form</Title>
-
                   <form onSubmit={handleSubmit}>
                     <FormSection>
                       <SelectContainer>
@@ -215,8 +216,7 @@ const Index = () => {
                           id='prefix'
                           name='prefix'
                           onChange={handleChange}
-                          value={values.prefix || 'Mr'} // Default to 'Mr'
-                        >
+                          value={values.prefix || 'Mr'}>
                           <option value='' disabled hidden>
                             Select an Option
                           </option>
@@ -239,17 +239,15 @@ const Index = () => {
                           error={touched.firstName && errors.firstName}
                           onBlur={handleBlur}
                           required
-                          size='medium' // Ensure size is consistent
                         />
                         <TextInput
-                          title='Middle Initial'
+                          title='Middle Name'
                           name='middleName'
-                          placeholder='Middle Initial'
+                          placeholder='Middle Name'
                           value={values.middleName}
                           onChange={handleChange}
                           error={touched.middleName && errors.middleName}
                           onBlur={handleBlur}
-                          size='medium' // Ensure size is consistent
                         />
                         <TextInput
                           title='Last Name'
@@ -260,7 +258,6 @@ const Index = () => {
                           error={touched.lastName && errors.lastName}
                           onBlur={handleBlur}
                           required
-                          size='medium' // Ensure size is consistent
                         />
                       </FormGrid>
                       {touched.firstName && errors.firstName && (
@@ -284,8 +281,6 @@ const Index = () => {
                           onChange={handleChange}
                           error={touched.StreetAddress && errors.StreetAddress}
                           onBlur={handleBlur}
-                          required
-                          size='medium' // Ensure size is consistent
                         />
                         <TextInput
                           title='Unit/Apt'
@@ -295,8 +290,18 @@ const Index = () => {
                           onChange={handleChange}
                           error={touched.unit && errors.unit}
                           onBlur={handleBlur}
-                          size='medium' // Ensure size is consistent
                         />
+                      </FormGrid>
+                      {touched.StreetAddress && errors.StreetAddress && (
+                        <ErrorMessage>{errors.StreetAddress}</ErrorMessage>
+                      )}
+                      {touched.unit && errors.unit && (
+                        <ErrorMessage>{errors.unit}</ErrorMessage>
+                      )}
+                    </FormSection>
+
+                    <FormSection>
+                      <FormGrid>
                         <TextInput
                           title='City'
                           name='city'
@@ -306,22 +311,7 @@ const Index = () => {
                           error={touched.city && errors.city}
                           onBlur={handleBlur}
                           required
-                          size='medium' // Ensure size is consistent
                         />
-                      </FormGrid>
-                      {touched.StreetAddress && errors.StreetAddress && (
-                        <ErrorMessage>{errors.StreetAddress}</ErrorMessage>
-                      )}
-                      {touched.unit && errors.unit && (
-                        <ErrorMessage>{errors.unit}</ErrorMessage>
-                      )}
-                      {touched.city && errors.city && (
-                        <ErrorMessage>{errors.city}</ErrorMessage>
-                      )}
-                    </FormSection>
-
-                    <FormSection>
-                      <FormGrid>
                         <TextInput
                           title='State'
                           name='state'
@@ -331,7 +321,6 @@ const Index = () => {
                           error={touched.state && errors.state}
                           onBlur={handleBlur}
                           required
-                          size='medium' // Ensure size is consistent
                         />
                         <TextInput
                           title='Zip Code'
@@ -342,58 +331,55 @@ const Index = () => {
                           error={touched.zip && errors.zip}
                           onBlur={handleBlur}
                           required
-                          size='medium' // Ensure size is consistent
-                        />
-                        <TextInput
-                          title='Phone'
-                          name='phone'
-                          placeholder='Phone Number'
-                          value={values.phone}
-                          onChange={handleChange}
-                          error={touched.phone && errors.phone}
-                          onBlur={handleBlur}
-                          required
-                          size='medium' // Ensure size is consistent
                         />
                       </FormGrid>
+                      {touched.city && errors.city && (
+                        <ErrorMessage>{errors.city}</ErrorMessage>
+                      )}
                       {touched.state && errors.state && (
                         <ErrorMessage>{errors.state}</ErrorMessage>
                       )}
                       {touched.zip && errors.zip && (
                         <ErrorMessage>{errors.zip}</ErrorMessage>
                       )}
-                      {touched.phone && errors.phone && (
-                        <ErrorMessage>{errors.phone}</ErrorMessage>
-                      )}
                     </FormSection>
 
                     <FormSection>
                       <FormGrid>
                         <TextInput
+                          title='Phone'
+                          name='phone'
+                          placeholder='Phone'
+                          value={values.phone}
+                          onChange={handleChange}
+                          error={touched.phone && errors.phone}
+                          onBlur={handleBlur}
+                          required
+                        />
+                        <TextInput
                           title='Email'
                           name='email'
-                          type='email'
-                          placeholder='Email Address'
+                          placeholder='Email'
                           value={values.email}
                           onChange={handleChange}
                           error={touched.email && errors.email}
                           onBlur={handleBlur}
                           required
-                          size='medium' // Ensure size is consistent
                         />
                         <TextInput
                           title='Confirm Email'
                           name='confirmEmail'
-                          type='email'
-                          placeholder='Confirm Email Address'
+                          placeholder='Confirm Email'
                           value={values.confirmEmail}
                           onChange={handleChange}
                           error={touched.confirmEmail && errors.confirmEmail}
                           onBlur={handleBlur}
                           required
-                          size='medium' // Ensure size is consistent
                         />
                       </FormGrid>
+                      {touched.phone && errors.phone && (
+                        <ErrorMessage>{errors.phone}</ErrorMessage>
+                      )}
                       {touched.email && errors.email && (
                         <ErrorMessage>{errors.email}</ErrorMessage>
                       )}
@@ -413,7 +399,6 @@ const Index = () => {
                           error={touched.typeOfDegree && errors.typeOfDegree}
                           onBlur={handleBlur}
                           required
-                          size='medium' // Ensure size is consistent
                         />
                         <TextInput
                           title='Degree Attained'
@@ -426,7 +411,6 @@ const Index = () => {
                           }
                           onBlur={handleBlur}
                           required
-                          size='medium' // Ensure size is consistent
                         />
                         <TextInput
                           title='Educational Institution'
@@ -440,7 +424,6 @@ const Index = () => {
                           }
                           onBlur={handleBlur}
                           required
-                          size='medium' // Ensure size is consistent
                         />
                       </FormGrid>
                       {touched.typeOfDegree && errors.typeOfDegree && (
@@ -468,16 +451,22 @@ const Index = () => {
                           touched.otherInformation && errors.otherInformation
                         }
                         onBlur={handleBlur}
-                        size='medium' // Ensure size is consistent
+                        multiline
                       />
                       {touched.otherInformation && errors.otherInformation && (
                         <ErrorMessage>{errors.otherInformation}</ErrorMessage>
                       )}
                     </FormSection>
 
-                    <Button type='submit' disabled={isSubmitting || !dirty}>
-                      Submit
-                    </Button>
+                    <FormSection>
+                      <Button
+                        type='submit'
+                        variant='primary'
+                        size='large'
+                        disabled={isSubmitting || !dirty}>
+                        {isSubmitting ? 'Submitting...' : 'Submit'}
+                      </Button>
+                    </FormSection>
                   </form>
                 </FormContainer>
               </animated.div>

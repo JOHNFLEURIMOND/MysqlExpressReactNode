@@ -4,13 +4,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import FleurimondTheme from '../theme'; // Import the theme
 
-// Container for the comment input
 const Container = styled.div`
   position: relative;
-  margin-bottom: 1.5rem; // Spacing from other elements
+  margin-bottom: 1.5rem;
 `;
 
-// Label styling
 const Label = styled.label`
   display: block;
   font-size: 0.875rem;
@@ -18,23 +16,21 @@ const Label = styled.label`
   margin-bottom: 0.5rem;
 `;
 
-// Textarea styling
 const Textarea = styled.textarea`
   width: 100%;
-  padding: 1rem; // Increased padding for better usability
-  font-size: 1rem; // Larger font size for readability
+  padding: 1rem;
+  font-size: 1rem;
   border: 1px solid ${FleurimondTheme.colors.primaryText};
   border-radius: 4px;
-  resize: vertical; // Allow vertical resizing
-  min-height: 150px; // Increased minimum height
+  resize: vertical;
+  min-height: 150px;
   box-sizing: border-box;
 
-  &.error {
+  &.$error {
     border-color: ${FleurimondTheme.colors.error};
   }
 `;
 
-// Error message styling
 const ErrorText = styled.div`
   color: ${FleurimondTheme.colors.error};
   font-size: 12px;
@@ -42,8 +38,8 @@ const ErrorText = styled.div`
   bottom: -1.5rem;
   left: 0;
   width: 100%;
-  height: 1.5rem; // Fixed height to avoid layout shifting
-  line-height: 1.5rem; // Vertically center text
+  height: 1.5rem;
+  line-height: 1.5rem;
   overflow: hidden;
 `;
 

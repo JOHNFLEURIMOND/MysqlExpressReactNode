@@ -1,8 +1,7 @@
-// routes/users.js
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const db = require('../database/database.js'); // Correct path to database
+const db = require('../database/database.js');
 const router = express.Router();
 require('dotenv').config();
 
@@ -23,18 +22,22 @@ router.get('/', async (req, res) => {
 router.post('/register', async (req, res) => {
   try {
     const { email, password, ...userData } = req.body;
+    console.log('Received data:', req.body); // Log received data
     const existingUser = await db.getUser({ email });
 
     if (!existingUser) {
+      console.log('No existing user found, creating new user');
       const hashedPassword = await bcrypt.hash(password, 10);
       userData.password = hashedPassword;
-      await db.createUser(userData);
+      const newUser = await db.createUser(userData);
+      console.log('User created:', newUser);
       res.status(201).json({ message: `${email} Registered!` });
     } else {
+      console.log('User already exists:', existingUser);
       res.status(400).json({ error: 'User already exists' });
     }
   } catch (err) {
-    console.error('Error registering user:', err);
+    console.error('Error registering user:', err); // Detailed error logging
     res.status(500).send('Error registering user');
   }
 });
@@ -60,6 +63,25 @@ router.post('/login', async (req, res) => {
 });
 
 // Route to get a user by ID (requires token)
+router.get('/profile', async (req, res) => {
+  try {
+    const token = req.headers['authorization'];
+    if (!token) return res.status(401).json({ error: 'No token provided' });
+
+    const decoded = jwt.verify(token, SECRET_KEY);
+    const user = await db.getUser({ id: decoded.id });
+
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).send('User not found');
+    }
+  } catch (err) {
+    console.error('Error retrieving user:', err);
+    res.status(500).send('Error retrieving user');
+  }
+});
+
 router.get('/profile', async (req, res) => {
   try {
     const token = req.headers['authorization'];

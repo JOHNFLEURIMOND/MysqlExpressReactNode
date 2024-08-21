@@ -1,11 +1,11 @@
-import { defineFlatConfig } from 'eslint-define-config'; // Import defineFlatConfig from eslint-define-config
-import eslintPluginReact from 'eslint-plugin-react'; // Import eslint-plugin-react
-import eslintPluginReactHooks from 'eslint-plugin-react-hooks'; // Import eslint-plugin-react-hooks
-import eslintPluginJest from 'eslint-plugin-jest'; // Import eslint-plugin-jest
-import eslintPluginPrettier from 'eslint-plugin-prettier'; // Import eslint-plugin-prettier
-import eslintConfigAirbnb from 'eslint-config-airbnb'; // Import eslint-config-airbnb
-import eslintConfigAirbnbHooks from 'eslint-config-airbnb/hooks'; // Import eslint-config-airbnb/hooks
-import eslintConfigPrettier from 'eslint-config-prettier'; // Import eslint-config-prettier
+const { defineFlatConfig } = require('eslint-define-config');
+const eslintPluginReact = require('eslint-plugin-react');
+const eslintPluginReactHooks = require('eslint-plugin-react-hooks');
+const eslintPluginJest = require('eslint-plugin-jest');
+const eslintPluginPrettier = require('eslint-plugin-prettier');
+const eslintConfigAirbnb = require('eslint-config-airbnb');
+const eslintConfigAirbnbHooks = require('eslint-config-airbnb/hooks');
+const eslintConfigPrettier = require('eslint-config-prettier');
 
 const airbnbConfig = {
   rules: eslintConfigAirbnb.rules,
@@ -20,7 +20,7 @@ const prettierConfig = {
   rules: eslintConfigPrettier.rules,
 };
 
-export default defineFlatConfig([
+module.exports = defineFlatConfig([
   {
     languageOptions: {
       parserOptions: {
@@ -57,18 +57,18 @@ export default defineFlatConfig([
       },
     },
     ignores: [
-      '**/node_modules/**', // Ignore all node_modules directories
-      'build/', // Ignore build directories
-      'dist/', // Ignore dist directories
-      'public/', // Ignore public directories
-      '**/*.css', // Ignore all CSS files
-      '**/*.html', // Ignore all HTML files
-      '**/*.json', // Ignore all JSON files
-      '**/*.md', // Ignore all Markdown files
-      '**/__snapshots__/**', // Ignore all snapshot directories
-      '**/.next/**', // Ignore Next.js build directories
-      '**/.nuxt/**', // Ignore Nuxt.js build directories
-      '**/.cache/**', // Ignore cache directories
+      '**/node_modules/**',
+      'build/',
+      'dist/',
+      'public/',
+      '**/*.css',
+      '**/*.html',
+      '**/*.json',
+      '**/*.md',
+      '**/__snapshots__/**',
+      '**/.next/**',
+      '**/.nuxt/**',
+      '**/.cache/**',
     ],
   },
 ]);

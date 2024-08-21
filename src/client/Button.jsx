@@ -13,11 +13,11 @@ const baseButtonStyles = css`
   letter-spacing: 0.02em;
   line-height: 1;
   padding: 8px 16px;
-  text-align: center; // Center text horizontally
-  box-sizing: border-box; // Include padding in width and height
+  text-align: center;
+  box-sizing: border-box;
   transition:
     background-color 0.3s ease,
-    border-color 0.3s ease; // Smooth transition for colors
+    border-color 0.3s ease;
 
   &:hover,
   &:active,
@@ -72,33 +72,32 @@ const buttonVariants = {
 const buttonSizes = {
   small: css`
     font-size: 12px;
-    padding: 6px 9px;
+    padding: 6px 12px;
   `,
   medium: css`
-    font-size: 13px;
-    padding: 8px 11px;
+    font-size: 14px;
+    padding: 8px 16px;
   `,
   large: css`
-    font-size: 18px;
-    padding: 12px 14px;
+    font-size: 16px;
+    padding: 10px 20px;
     font-weight: 700;
   `,
 };
 
-const StyledButton = styled.button.attrs(props => ({
-  type: props.href ? 'a' : 'button',
-}))`
+const StyledButton = styled.button`
   ${baseButtonStyles};
   ${props => buttonVariants[props.variant || 'secondary']};
-  ${props => buttonSizes[props.size || 'small']};
+  ${props => buttonSizes[props.size || 'medium']};
 `;
 
-const Button = ({ variant = 'secondary', size = 'small', href, ...rest }) => {
-  return href ? (
-    <StyledButton as='a' href={href} {...rest} />
-  ) : (
-    <StyledButton variant={variant} size={size} {...rest} />
-  );
+const Button = ({
+  variant = 'secondary',
+  size = 'medium',
+  type = 'button',
+  ...rest
+}) => {
+  return <StyledButton type={type} variant={variant} size={size} {...rest} />;
 };
 
 export default Button;

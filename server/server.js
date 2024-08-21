@@ -1,10 +1,9 @@
-// server.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-const db = require('../database/database.js'); // Correct path to database file
-const userRoutes = require('../routes/users.js'); // Correct path to routes file
+const db = require('../database/database.js');
+const userRoutes = require('../routes/users.js');
 require('dotenv').config();
 
 const app = express();
@@ -31,10 +30,10 @@ app.use('/users', userRoutes);
 
 // Serve static files from Vite build
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.resolve(__dirname, '../dist'))); // Vite build output directory
+  app.use(express.static(path.resolve(__dirname, '../dist')));
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../dist', 'index.html')); // Vite build entry point
+    res.sendFile(path.resolve(__dirname, '../dist', 'index.html'));
   });
 } else {
   app.get('*', (req, res) =>

@@ -26,18 +26,15 @@ const User = sequelize.define(
     firstName: { type: Sequelize.STRING },
     middleName: Sequelize.STRING,
     lastName: { type: Sequelize.STRING },
-    phone: { type: Sequelize.STRING }, // Changed to STRING for phone numbers
+    phone: { type: Sequelize.STRING },
     streetAddress: Sequelize.STRING,
     email: { type: Sequelize.STRING, unique: true },
     confirmEmail: Sequelize.STRING,
-    unit: Sequelize.STRING, // Changed to STRING for unit
+    unit: Sequelize.STRING,
     city: Sequelize.STRING,
     state: Sequelize.STRING,
     zip: Sequelize.STRING,
-    typeOfDegree: Sequelize.STRING,
-    degreeAttained: Sequelize.STRING,
-    educationalInstitution: Sequelize.STRING,
-    otherInformation: Sequelize.STRING,
+    password: { type: Sequelize.STRING }, // Added password field
     created: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW,
