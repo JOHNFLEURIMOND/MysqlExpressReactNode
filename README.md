@@ -528,9 +528,7 @@ rm -rf package-lock.json && rm -rf node_modules && npm install -g npm-check-upda
    git add . && git commit -m "Merged main branch into current branch" && git push
    ```
 
-## License
-
-Fleurimond 2024
+## License: Fleurimond 2024
 
 ## Contributing
 
