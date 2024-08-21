@@ -1,3 +1,8 @@
+// handleRegistration.js
+
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 export const handleRegistration = async (req, res) => {
   const {
     firstName,
@@ -11,17 +16,21 @@ export const handleRegistration = async (req, res) => {
     city,
     state,
     zip,
-    typeOfDegree,
-    degreeAttained,
-    educationalInstitution,
-    otherInformation,
+    password, // Add password field
   } = req.body;
 
   if (!email || !confirmEmail || email !== confirmEmail) {
     return res.status(400).json({ error: 'Emails do not match' });
   }
 
+  if (!password) {
+    return res.status(400).json({ error: 'Password is required' });
+  }
+
   try {
+    // Hash the password before storing it
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     // Use ORM methods to interact with the database
     const user = await db.createUser({
       firstName,
@@ -34,10 +43,7 @@ export const handleRegistration = async (req, res) => {
       city,
       state,
       zip,
-      typeOfDegree,
-      degreeAttained,
-      educationalInstitution,
-      otherInformation,
+      password: hashedPassword, // Store the hashed password
     });
 
     res.status(200).json({ success: true, user });
