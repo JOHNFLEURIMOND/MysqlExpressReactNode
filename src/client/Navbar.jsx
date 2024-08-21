@@ -3,6 +3,7 @@ import React, { useState, useCallback, lazy, Suspense } from 'react';
 import styled from 'styled-components';
 import FleurimondTheme from '../theme';
 import { useMediaQuery } from 'react-responsive';
+import { useAuth } from '../hooks/useAuth';
 
 const LazyCgMenu = lazy(() =>
   import('react-icons/cg').then(module => ({ default: module.CgMenu }))
@@ -133,6 +134,7 @@ const Navbar = React.memo(() => {
   const isMobile = useMediaQuery({
     query: `(max-width: ${FleurimondTheme.media.tabletL})`,
   });
+  const { isAuthenticated } = useAuth();
 
   const handleMenuToggle = useCallback(() => {
     setOpenMenu(prev => !prev);
@@ -145,6 +147,11 @@ const Navbar = React.memo(() => {
     { href: 'https://twitter.com/tcodemonger', label: 'Twitter' },
     { href: 'https://www.linkedin.com/in/john-fleurimond/', label: 'LinkedIn' },
   ];
+
+  // Conditionally include profile link if authenticated
+  if (isAuthenticated) {
+    navItems.push({ href: '/profile', label: 'Profile' });
+  }
 
   return (
     <>

@@ -10,7 +10,9 @@ const Container = styled.div`
   position: relative;
 `;
 
-const InputField = styled.input`
+const InputField = styled.input.attrs(props => ({
+  type: 'text',
+}))`
   font:
     15px/24px 'Lato',
     Arial,
@@ -21,7 +23,7 @@ const InputField = styled.input`
   box-sizing: border-box;
   letter-spacing: 1px;
   border: 1px solid
-    ${props => (props.error ? FleurimondTheme.colors.error : '#ccc')}; // Error border color
+    ${props => (props.$error ? FleurimondTheme.colors.error : '#ccc')}; // Error border color
   padding: 7px 14px 9px;
   transition: 0.4s;
 
@@ -100,18 +102,15 @@ const StyledInput = ({
     <Container>
       <InputWrapper>
         <InputField
-          type='text'
           name={name}
           placeholder={title || 'Placeholder Text'}
           value={value}
           onChange={onChange}
           onBlur={onBlur}
-          error={error} // Pass error state
+          $error={error} // Use transient prop
           required={required}
         />
-        <FocusBorder>
-          <i></i>
-        </FocusBorder>
+        <FocusBorder />
       </InputWrapper>
       {error && <ErrorText>{error}</ErrorText>} {/* Display error message */}
     </Container>
