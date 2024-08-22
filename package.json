@@ -6,7 +6,7 @@
     "serve": "vite",
     "server": "node netlify/functions/server.js",
     "dev": "npx concurrently \"vite\" \"npm run server\"",
-    "build": "rm -rf package-lock.json && rm -rf node_modules && npm install --legacy-peer-deps --force && vite build",
+    "build": "rm -rf package-lock.json && rm -rf node_modules && npm install && vite build",
     "preview": "vite preview",
     "restart": "rm -rf package-lock.json && rm -rf node_modules && npm install --legacy-peer-deps && npx npm-check-updates -u && npm install --legacy-peer-deps && npm run clean &&  npm run dev",
     "lint": "npx eslint . --fix",
