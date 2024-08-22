@@ -28,13 +28,8 @@ const User = sequelize.define(
     firstName: { type: Sequelize.STRING },
     middleName: Sequelize.STRING,
     lastName: { type: Sequelize.STRING },
-    phone: { type: Sequelize.STRING },
-    streetAddress: Sequelize.STRING,
+    phone: { type: Sequelize.STRING }, // Change from Sequelize.INTEGER to Sequelize.STRING
     email: { type: Sequelize.STRING, unique: true },
-    unit: Sequelize.STRING,
-    city: Sequelize.STRING,
-    state: Sequelize.STRING,
-    zip: Sequelize.STRING,
     password: { type: Sequelize.STRING }, // Store hashed password
     created: {
       type: Sequelize.DATE,

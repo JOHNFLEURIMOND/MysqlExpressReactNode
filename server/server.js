@@ -1,9 +1,8 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-const db = require('../database/database.js');
-const userRoutes = require('../routes/users.js');
+const db = require('../database/database.js'); // Adjust path if necessary
+const userRoutes = require('../routes/users.js'); // Adjust path if necessary
 require('dotenv').config();
 
 const app = express();
@@ -11,9 +10,7 @@ const PORT = process.env.PORT || 8080;
 
 // Middleware
 app.use(cors());
-app.use(express.json());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json()); // Only use express.json()
 
 // Database connection
 db.authenticate()

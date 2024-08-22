@@ -1,13 +1,13 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('../database/database.js');
+const { handleRegistration } = require('./registration'); // Import the registration handler
 const router = express.Router();
 require('dotenv').config();
 
 const SECRET_KEY = process.env.SECRET_KEY || 'secret';
 
-// Route to get all users
+// Route to get all users (for admin use, consider securing this route)
 router.get('/', async (req, res) => {
   try {
     const users = await db.getAllUsers();
@@ -19,36 +19,16 @@ router.get('/', async (req, res) => {
 });
 
 // Route to register a new user
-router.post('/register', async (req, res) => {
-  try {
-    const { email, password, ...userData } = req.body;
-    console.log('Received data:', req.body); // Log received data
-    const existingUser = await db.getUser({ email });
-
-    if (!existingUser) {
-      console.log('No existing user found, creating new user');
-      const hashedPassword = await bcrypt.hash(password, 10);
-      userData.password = hashedPassword;
-      const newUser = await db.createUser(userData);
-      console.log('User created:', newUser);
-      res.status(201).json({ message: `${email} Registered!` });
-    } else {
-      console.log('User already exists:', existingUser);
-      res.status(400).json({ error: 'User already exists' });
-    }
-  } catch (err) {
-    console.error('Error registering user:', err); // Detailed error logging
-    res.status(500).send('Error registering user');
-  }
-});
+router.post('/register', handleRegistration); // Use the registration handler
 
 // Route to authenticate a user
 router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
   try {
-    const { email, password } = req.body;
     const user = await db.getUser({ email });
 
-    if (user && bcrypt.compareSync(password, user.password)) {
+    if (user && (await bcrypt.compare(password, user.password))) {
       const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, {
         expiresIn: '24h',
       });
@@ -56,37 +36,21 @@ router.post('/login', async (req, res) => {
     } else {
       res.status(400).json({ error: 'Invalid credentials' });
     }
-  } catch (err) {
-    console.error('Error logging in:', err);
+  } catch (error) {
+    console.error('Error logging in:', error);
     res.status(500).send('Error logging in');
   }
 });
 
-// Route to get a user by ID (requires token)
+// Route to get user profile (requires token)
 router.get('/profile', async (req, res) => {
-  try {
-    const token = req.headers['authorization'];
-    if (!token) return res.status(401).json({ error: 'No token provided' });
+  const token = req.headers['authorization'];
 
-    const decoded = jwt.verify(token, SECRET_KEY);
-    const user = await db.getUser({ id: decoded.id });
-
-    if (user) {
-      res.json(user);
-    } else {
-      res.status(404).send('User not found');
-    }
-  } catch (err) {
-    console.error('Error retrieving user:', err);
-    res.status(500).send('Error retrieving user');
+  if (!token) {
+    return res.status(401).json({ error: 'No token provided' });
   }
-});
 
-router.get('/profile', async (req, res) => {
   try {
-    const token = req.headers['authorization'];
-    if (!token) return res.status(401).json({ error: 'No token provided' });
-
     const decoded = jwt.verify(token, SECRET_KEY);
     const user = await db.getUser({ id: decoded.id });
 
@@ -95,8 +59,8 @@ router.get('/profile', async (req, res) => {
     } else {
       res.status(404).send('User not found');
     }
-  } catch (err) {
-    console.error('Error retrieving user:', err);
+  } catch (error) {
+    console.error('Error retrieving user:', error);
     res.status(500).send('Error retrieving user');
   }
 });

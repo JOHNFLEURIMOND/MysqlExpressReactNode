@@ -1,9 +1,8 @@
-// handleRegistration.js
-
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const db = require('../database/database.js');
 
-export const handleRegistration = async (req, res) => {
+const handleRegistration = async (req, res) => {
   const {
     firstName,
     middleName,
@@ -11,44 +10,44 @@ export const handleRegistration = async (req, res) => {
     phone,
     email,
     confirmEmail,
-    streetAddress,
-    unit,
-    city,
-    state,
-    zip,
-    password, // Add password field
+    password,
+    confirmPassword,
   } = req.body;
 
   if (!email || !confirmEmail || email !== confirmEmail) {
     return res.status(400).json({ error: 'Emails do not match' });
   }
 
-  if (!password) {
-    return res.status(400).json({ error: 'Password is required' });
+  if (!password || password !== confirmPassword) {
+    return res.status(400).json({ error: 'Passwords do not match' });
   }
 
   try {
-    // Hash the password before storing it
+    const existingUser = await db.getUser({ email });
+
+    if (existingUser) {
+      return res.status(400).json({ error: 'User already exists' });
+    }
+
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Use ORM methods to interact with the database
-    const user = await db.createUser({
+    const userData = {
       firstName,
       middleName,
       lastName,
       phone,
       email,
-      streetAddress,
-      unit,
-      city,
-      state,
-      zip,
-      password: hashedPassword, // Store the hashed password
-    });
+      password: hashedPassword,
+    };
 
-    res.status(200).json({ success: true, user });
+    const user = await db.createUser(userData);
+    res.status(201).json({ success: true, user });
   } catch (error) {
-    console.error('Database Error:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Registration error:', error.message); // Log error details
+    res
+      .status(500)
+      .json({ error: 'Internal Server Error', details: error.message });
   }
 };
+
+module.exports = { handleRegistration };
