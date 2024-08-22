@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import FleurimondTheme from '../theme';
 import { useMediaQuery } from 'react-responsive';
 import { useAuth } from '../hooks/useAuth';
+import ProfilePage from './client/ProfilePage';
 
 const LazyCgMenu = lazy(() =>
   import('react-icons/cg').then(module => ({ default: module.CgMenu }))

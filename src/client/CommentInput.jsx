@@ -23,7 +23,7 @@ const Textarea = styled.textarea`
   border: 1px solid ${FleurimondTheme.colors.primaryText};
   border-radius: 4px;
   resize: vertical;
-  min-height: 150px;
+  min-height: 151px;
   box-sizing: border-box;
 
   &.$error {
@@ -50,7 +50,7 @@ const CommentInput = React.memo(
       <Textarea
         name={name}
         id={name}
-        className={error ? 'error' : ''}
+        className={error ? 'error ' : ''}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
