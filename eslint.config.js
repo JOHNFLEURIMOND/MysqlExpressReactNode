@@ -30,6 +30,13 @@ module.exports = defineFlatConfig([
           jsx: true,
         },
       },
+      globals: {
+        window: 'readonly',
+        document: 'readonly',
+        fetch: 'readonly',
+        console: 'readonly',
+        // Add other globals if needed
+      },
     },
     plugins: {
       react: eslintPluginReact,
