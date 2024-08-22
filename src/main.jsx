@@ -13,8 +13,6 @@ root.render(
   <ThemeProvider theme={FleurimondTheme}>
     <GlobalStyle />
     <Router>
-      {' '}
-      {/* Wrap Index with Router */}
       <Index />
     </Router>
   </ThemeProvider>
