@@ -23,7 +23,7 @@ const ProfileDetail = styled.div`
   color: ${colors.primaryText};
 `;
 
-const UserProfile = () => {
+const ProfilePage = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -88,4 +88,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default ProfilePage;

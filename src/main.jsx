@@ -1,13 +1,12 @@
-// src/Main.jsx
 import React from 'react';
-import ReactDOM from 'react-dom/client'; // Import createRoot from 'react-dom/client'
-import Index from './Index.jsx'; // Assuming your main component is now App
-import GlobalStyle from './GlobalStyle.jsx';
+import ReactDOM from 'react-dom/client';
+import Index from './Index'; // Ensure the path and casing are correct
+import GlobalStyle from './GlobalStyle';
 import { ThemeProvider } from 'styled-components';
-import FleurimondTheme from './theme.jsx';
-import { BrowserRouter as Router } from 'react-router-dom'; // Import BrowserRouter
+import FleurimondTheme from './theme';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-const root = ReactDOM.createRoot(document.getElementById('root')); // Create a root element
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <ThemeProvider theme={FleurimondTheme}>
