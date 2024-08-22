@@ -69,6 +69,9 @@ module.exports = defineFlatConfig([
       '**/.next/**',
       '**/.nuxt/**',
       '**/.cache/**',
+      '**/build/**',
+      '**/dist/**',
+      '**/public/**',
     ],
   },
 ]);

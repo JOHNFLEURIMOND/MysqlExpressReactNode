@@ -8,7 +8,7 @@
     "dev": "npx concurrently \"vite\" \"npm run server\"",
     "build": "vite build",
     "preview": "vite preview",
-    "restart": "rm -rf package-lock.json && rm -rf node_modules && npm install --legacy-peer-deps && npx npm-check-updates -u && npm install --legacy-peer-deps && npm run clean &&  npm run serve",
+    "restart": "rm -rf package-lock.json && rm -rf node_modules && npm install --legacy-peer-deps && npx npm-check-updates -u && npm install --legacy-peer-deps && npm run clean &&  npm run dev",
     "lint": "npx eslint . --fix",
     "format": "prettier --write .",
     "fix": "npm run format && npm run lint",
@@ -39,7 +39,7 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "@emotion/react": "^11.13.0",
+    "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@react-spring/web": "^9.7.4",
     "@vitejs/plugin-react": "^4.3.1",

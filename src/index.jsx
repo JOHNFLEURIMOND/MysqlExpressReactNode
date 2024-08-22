@@ -3,32 +3,70 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { animated, useSpring } from 'react-spring';
-import Navbar from './Navbar'; // Adjust import paths as needed
-import MainContent from './MainContent';
-import FormContainer from './FormContainer';
-import Title from './Title';
-import FormSection from './FormSection';
-import FormGrid from './FormGrid';
-import TextInput from './TextInput';
-import Button from './Button';
-import ErrorMessage from './ErrorMessage';
+import { animated, useSpring } from '@react-spring/web';
+import Navbar from './client/Navbar';
+import TextInput from './client/TextInput';
+import Button from './client/Button';
+import FleurimondTheme from './theme';
+import styled from 'styled-components';
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required('First name is required'),
   middleName: Yup.string(),
   lastName: Yup.string().required('Last name is required'),
   phone: Yup.string().required('Phone number is required'),
-  streetAddress: Yup.string(),
   email: Yup.string()
     .email('Invalid email address')
     .required('Email is required'),
-  unit: Yup.string(),
-  city: Yup.string(),
-  state: Yup.string(),
-  zip: Yup.string(),
+  confirmEmail: Yup.string()
+    .email('Invalid email address')
+    .required('Confirm Email is required'),
   password: Yup.string().required('Password is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Confirm Password is required'),
 });
+
+const { colors } = FleurimondTheme;
+
+const MainContent = styled.div`
+  padding: 2rem;
+  background-color: ${colors.background};
+`;
+
+const Title = styled.h1`
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-family: var(--font-heading);
+  color: ${colors.primaryText};
+`;
+
+const FormContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: ${FleurimondTheme.colors.shadow};
+  box-sizing: border-box;
+`;
+
+const FormSection = styled.div`
+  margin-bottom: 1.5rem;
+`;
+
+const FormGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+`;
+
+const ErrorMessage = styled.div`
+  color: ${colors.error};
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+`;
 
 const Index = () => {
   const navigate = useNavigate();
@@ -41,15 +79,16 @@ const Index = () => {
 
   const handleSubmit = async (values, actions) => {
     try {
-      const response = await axios.post(
-        'http://localhost:8080/users/register',
-        values
-      );
-      console.log('Response:', response);
+      await axios.post('http://localhost:8080/users/register', values);
       alert('Form submitted successfully!');
-      navigate('/profile'); // Redirect to the profile page after successful submission
+      navigate('/profile');
     } catch (error) {
-      console.error('Error:', error.response);
+      // Log the entire error object to see all details
+      console.error(
+        'Error:',
+        error.response ? error.response.data : error.message
+      );
+      alert('An error occurred while submitting the form. Please try again.');
     } finally {
       actions.setSubmitting(false);
     }
@@ -66,12 +105,9 @@ const Index = () => {
             lastName: '',
             phone: '',
             email: '',
-            streetAddress: '',
-            unit: '',
-            city: '',
-            state: '',
-            zip: '',
+            confirmEmail: '',
             password: '',
+            confirmPassword: '',
           }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}>
@@ -88,7 +124,7 @@ const Index = () => {
             <Suspense fallback={<div>Loading...</div>}>
               <animated.div style={animationProps}>
                 <FormContainer>
-                  <Title>Contact Form</Title>
+                  <Title>Registration Form</Title>
                   <form onSubmit={handleSubmit}>
                     <FormSection>
                       <FormGrid>
@@ -131,79 +167,7 @@ const Index = () => {
                       {touched.lastName && errors.lastName && (
                         <ErrorMessage>{errors.lastName}</ErrorMessage>
                       )}
-                    </FormSection>
 
-                    <FormSection>
-                      <FormGrid>
-                        <TextInput
-                          title='Street Address'
-                          name='streetAddress'
-                          placeholder='Street Address'
-                          value={values.streetAddress}
-                          onChange={handleChange}
-                          error={touched.streetAddress && errors.streetAddress}
-                          onBlur={handleBlur}
-                        />
-                        <TextInput
-                          title='Unit/Apt'
-                          name='unit'
-                          placeholder='Unit/Apt'
-                          value={values.unit}
-                          onChange={handleChange}
-                          error={touched.unit && errors.unit}
-                          onBlur={handleBlur}
-                        />
-                      </FormGrid>
-                      {touched.streetAddress && errors.streetAddress && (
-                        <ErrorMessage>{errors.streetAddress}</ErrorMessage>
-                      )}
-                      {touched.unit && errors.unit && (
-                        <ErrorMessage>{errors.unit}</ErrorMessage>
-                      )}
-                    </FormSection>
-
-                    <FormSection>
-                      <FormGrid>
-                        <TextInput
-                          title='City'
-                          name='city'
-                          placeholder='City'
-                          value={values.city}
-                          onChange={handleChange}
-                          error={touched.city && errors.city}
-                          onBlur={handleBlur}
-                        />
-                        <TextInput
-                          title='State'
-                          name='state'
-                          placeholder='State'
-                          value={values.state}
-                          onChange={handleChange}
-                          error={touched.state && errors.state}
-                          onBlur={handleBlur}
-                        />
-                        <TextInput
-                          title='Zip Code'
-                          name='zip'
-                          placeholder='Zip Code'
-                          value={values.zip}
-                          onChange={handleChange}
-                          error={touched.zip && errors.zip}
-                          onBlur={handleBlur}
-                        />
-                      </FormGrid>
-                      {touched.city && errors.city && (
-                        <ErrorMessage>{errors.city}</ErrorMessage>
-                      )}
-                      {touched.state && errors.state && (
-                        <ErrorMessage>{errors.state}</ErrorMessage>
-                      )}
-                      {touched.zip && errors.zip && (
-                        <ErrorMessage>{errors.zip}</ErrorMessage>
-                      )}
-                    </FormSection>
-
-                    <FormSection>
                       <FormGrid>
                         <TextInput
                           title='Phone'
@@ -225,6 +189,16 @@ const Index = () => {
                           onBlur={handleBlur}
                           required
                         />
+                        <TextInput
+                          title='Confirm Email'
+                          name='confirmEmail'
+                          placeholder='Confirm Email'
+                          value={values.confirmEmail}
+                          onChange={handleChange}
+                          error={touched.confirmEmail && errors.confirmEmail}
+                          onBlur={handleBlur}
+                          required
+                        />
                       </FormGrid>
                       {touched.phone && errors.phone && (
                         <ErrorMessage>{errors.phone}</ErrorMessage>
@@ -232,9 +206,10 @@ const Index = () => {
                       {touched.email && errors.email && (
                         <ErrorMessage>{errors.email}</ErrorMessage>
                       )}
-                    </FormSection>
+                      {touched.confirmEmail && errors.confirmEmail && (
+                        <ErrorMessage>{errors.confirmEmail}</ErrorMessage>
+                      )}
 
-                    <FormSection>
                       <TextInput
                         title='Password'
                         name='password'
@@ -249,9 +224,24 @@ const Index = () => {
                       {touched.password && errors.password && (
                         <ErrorMessage>{errors.password}</ErrorMessage>
                       )}
-                    </FormSection>
 
-                    <FormSection>
+                      <TextInput
+                        title='Confirm Password'
+                        name='confirmPassword'
+                        placeholder='Confirm Password'
+                        value={values.confirmPassword}
+                        onChange={handleChange}
+                        error={
+                          touched.confirmPassword && errors.confirmPassword
+                        }
+                        onBlur={handleBlur}
+                        type='password'
+                        required
+                      />
+                      {touched.confirmPassword && errors.confirmPassword && (
+                        <ErrorMessage>{errors.confirmPassword}</ErrorMessage>
+                      )}
+
                       <Button
                         type='submit'
                         variant='primary'
