@@ -6,7 +6,7 @@
     "serve": "vite",
     "server": "node netlify/functions/server.js",
     "dev": "npx concurrently \"vite\" \"npm run server\"",
-    "build": "rm -rf package-lock.json && rm -rf node_modules && npm install && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "restart": "rm -rf package-lock.json && rm -rf node_modules && npm install --legacy-peer-deps && npx npm-check-updates -u && npm install --legacy-peer-deps && npm run clean &&  npm run dev",
     "lint": "npx eslint . --fix",
@@ -78,7 +78,7 @@
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^2.1.4",
-    "eslint": "^8.2.0",
+    "eslint": "^9.9.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.1.0",
     "eslint-define-config": "^2.1.0",
