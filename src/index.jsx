@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { animated, useSpring } from '@react-spring/web';
 import Navbar from './client/Navbar';
 import TextInput from './client/TextInput';
+import TextInput from './client/ProfilePage';
 import Button from './client/Button';
 import FleurimondTheme from './theme';
 import styled from 'styled-components';
