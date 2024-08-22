@@ -546,4 +546,4 @@ attempted value: ${a}
     font-weight: 700;
     font-style: italic;
   }
-`,fS=Yi.createRoot(document.getElementById("root"));fS.render(F.jsxs(x1,{theme:P,children:[F.jsx(lS,{}),F.jsxs(Y0,{children:[" ",F.jsx(Ow,{})]})]}))});export default dS();
+`,fS=Yi.createRoot(document.getElementById("root"));fS.render(F.jsxs(x1,{theme:P,children:[F.jsx(lS,{}),F.jsx(Y0,{children:F.jsx(Ow,{})})]}))});export default dS();
