@@ -13,7 +13,7 @@
     "format": "prettier --write .",
     "fix": "npm run format && npm run lint",
     "prettier-watch": "onchange '**/*.{ts,tsx,js,jsx,css}' -- prettier --write {{changed}}",
-    "push": "npm run fix && rm -rf package-lock.json && rm -rf node_modules && git add . && git commit -m 'App running.' && git push",
+    "push": "npm run fix && rm -rf package-lock.json && rm -rf node_modules && git add . && git commit -m 'Fix netlify.' && git push",
     "kill": "pkill -f node",
     "clean": "npm cache clean --force && npm run build"
   },
@@ -78,7 +78,7 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",
     "babel-plugin-styled-components": "^2.1.4",
-    "eslint": "^9.9.0",
+    "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.1.0",
     "eslint-define-config": "^2.1.0",
