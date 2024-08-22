@@ -1,7 +1,7 @@
 // src/Main.jsx
 import React from 'react';
 import ReactDOM from 'react-dom/client'; // Import createRoot from 'react-dom/client'
-import Index from './Index'; // Assuming your main component is now App
+import Index from './Index.jsx'; // Assuming your main component is now App
 import GlobalStyle from './GlobalStyle.jsx';
 import { ThemeProvider } from 'styled-components';
 import FleurimondTheme from './theme.jsx';
