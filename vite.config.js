@@ -4,29 +4,40 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: 'dist',
-    external: [
-      '@emotion/react', // Add @emotion/react to the external list if you don't want to include it in the bundle
-    ],
+    outDir: 'dist', // Output directory for the build
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom'], // Split vendor code
+          // Split vendor code (e.g., React and ReactDOM) into a separate chunk
+          vendor: ['react', 'react-dom'],
         },
         globals: {
+          // Define global variables for external dependencies if necessary
           '@emotion/react': 'EmotionReact',
         },
       },
+      external: [
+        // Exclude these dependencies from the final bundle
+        '@emotion/react',
+      ],
     },
   },
   server: {
-    port: 3000, // Default Vite server port
+    port: 3000, // Development server port
     proxy: {
       '/api': {
-        target: 'http://localhost:8080', // Adjust to your Express server port
+        target: 'http://localhost:8080', // Backend API server
         changeOrigin: true,
-        rewrite: path => path.replace(/^\/api/, ''),
+        rewrite: path => path.replace(/^\/api/, ''), // Remove /api prefix when proxying
       },
     },
+  },
+  resolve: {
+    alias: {
+      '@': '/src', // Simplify imports from the src directory
+    },
+  },
+  optimizeDeps: {
+    include: ['@emotion/react'], // Ensure @emotion/react is optimized for faster builds
   },
 });
