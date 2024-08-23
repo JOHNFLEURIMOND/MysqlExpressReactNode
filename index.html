@@ -2,22 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
     <meta name="theme-color" content="#000000" />
     <title>Fleurimond</title>
-    
+
     <!-- Preconnect to external domains to improve performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
-    
+
     <!-- Link to external stylesheets -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <link rel="stylesheet" href="https://patterns.boston.gov/css/public.css" />
-    
+
     <!-- Add favicon in multiple formats for better support -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    
+
     <!-- Link to Vite-generated assets -->
     <link rel="stylesheet" href="/src/index.css" />
   </head>
@@ -26,22 +32,22 @@
     <noscript role="alert">
       You need to enable JavaScript to run this app.
     </noscript>
-    
+
     <!-- Main content will be injected by React -->
     <main id="root">
       <!-- React will handle this -->
     </main>
-    
+
     <!-- Load Vite-generated main script -->
     <script type="module" src="/src/main.jsx" defer></script>
-    
+
     <!-- Optional: Add a custom script if needed for server-side interactions -->
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        fetch('/api/initial-data')
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("/api/initial-data")
           .then(response => response.json())
           .then(data => {
-            console.log('Initial data:', data);
+            console.log("Initial data:", data);
           });
       });
     </script>

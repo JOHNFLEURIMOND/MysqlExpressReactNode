@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Index from './Index'; // Ensure the path and casing are correct
+import App from './App.jsx'; // Ensure the path and casing are correct
 import GlobalStyle from './GlobalStyle';
 import { ThemeProvider } from 'styled-components';
 import FleurimondTheme from './theme';
@@ -12,7 +12,7 @@ root.render(
   <ThemeProvider theme={FleurimondTheme}>
     <GlobalStyle />
     <Router>
-      <Index />
+      <App />
     </Router>
   </ThemeProvider>
 );
