@@ -11,9 +11,15 @@ const PORT = process.env.PORT || 8080;
 
 // Middleware
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' ? 'https://bostonmernstackapp.netlify.app/' : 'http://localhost:3000',
-  credentials: true,
+  origin: process.env.NODE_ENV === 'production' ? 'https://bostonmernstackapp.netlify.app' : 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true, // Include this if you're dealing with cookies or authentication
 }));
+
+// Ensure OPTIONS requests are handled for CORS preflight
+app.options('*', cors());
+
 app.use(express.json());
 
 // Database connection
@@ -38,6 +44,12 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something went wrong!');
+});
+
 // Export the app as a serverless function for Netlify
 module.exports.handler = serverless(app);
 
@@ -46,4 +58,4 @@ if (!process.env.NETLIFY || process.env.NETLIFY_LOCAL === 'true') {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
-}
+};

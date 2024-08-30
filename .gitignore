@@ -24,3 +24,13 @@ yarn-error.log*
 package-lock.json
 # Local Netlify folder
 .netlify
+**/node_modules/**
+build/
+dist/
+**/__snapshots__/**
+**/.next/**
+**/.nuxt/**
+**/.cache/**
+**/build/**
+**/dist/**
+**/public/**
