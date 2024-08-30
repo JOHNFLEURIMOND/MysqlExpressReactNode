@@ -9,53 +9,57 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Middleware
+// Middleware setup
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' ? 'https://bostonmernstackapp.netlify.app' : 'http://localhost:3000',
+  origin: process.env.NODE_ENV === 'production' 
+    ? 'https://bostonmernstackapp.netlify.app' 
+    : 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true, // Include this if you're dealing with cookies or authentication
+  credentials: true,
 }));
-
-// Ensure OPTIONS requests are handled for CORS preflight
-app.options('*', cors());
 
 app.use(express.json());
 
 // Database connection
-db.authenticate()
-  .then(() => console.log('Database connected successfully 💯'))
-  .catch(err => console.error('Error connecting to database:', err));
-
-// Sync User model
-db.User.sync()
-  .then(() => console.log('User Table Created Successfully!'))
-  .catch(err => console.error('Error creating User Table:', err));
+const connectDatabase = async () => {
+  try {
+    await db.authenticate();
+    console.log('Database connected successfully 💯');
+    await db.User.sync();
+    console.log('User Table Created Successfully!');
+  } catch (err) {
+    console.error('Database error:', err);
+  }
+};
+connectDatabase();
 
 // API routes
 const apiPrefix = process.env.NODE_ENV === 'production' ? '' : '/api';
+console.log('API Prefix:', apiPrefix);
 app.use(`${apiPrefix}/users`, userRoutes);
 
-// Serve static files from Vite build (only in production)
+// Serve static files in production
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.resolve(__dirname, '../../dist')));
+  const distPath = path.resolve(__dirname, '../../dist');
+  app.use(express.static(distPath));
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../../dist', 'index.html'));
+    res.sendFile(path.join(distPath, 'index.html'));
   });
 }
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.error('Server Error:', err.stack);
   res.status(500).send('Something went wrong!');
 });
 
-// Export the app as a serverless function for Netlify
+// Export as serverless function for Netlify
 module.exports.handler = serverless(app);
 
-// Start the server if running locally
+// Start server locally
 if (!process.env.NETLIFY || process.env.NETLIFY_LOCAL === 'true') {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
-};
+}

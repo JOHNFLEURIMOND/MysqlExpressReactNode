@@ -15,12 +15,8 @@ const validationSchema = Yup.object().shape({
   middleName: Yup.string(),
   lastName: Yup.string().required('Last name is required'),
   phone: Yup.string().required('Phone number is required'),
-  email: Yup.string()
-    .email('Invalid email address')
-    .required('Email is required'),
-  confirmEmail: Yup.string()
-    .email('Invalid email address')
-    .required('Confirm Email is required'),
+  email: Yup.string().email('Invalid email address').required('Email is required'),
+  confirmEmail: Yup.string().email('Invalid email address').required('Confirm Email is required'),
   password: Yup.string().required('Password is required'),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
@@ -68,6 +64,10 @@ const ErrorMessage = styled.div`
   margin-top: 0.5rem;
 `;
 
+const API_URL = import.meta.env.MODE === 'production'
+  ? 'https://your-production-api-url.com'
+  : 'http://localhost:8080/api';
+
 const Index = () => {
   const navigate = useNavigate();
 
@@ -79,15 +79,11 @@ const Index = () => {
 
   const handleSubmit = async (values, actions) => {
     try {
-      await axios.post('http://localhost:8080/users/register', values);
+      await axios.post(`${API_URL}/users/register`, values);
       alert('Form submitted successfully!');
       navigate('/profile');
     } catch (error) {
-      // Log the entire error object to see all details
-      console.error(
-        'Error:',
-        error.response ? error.response.data : error.message
-      );
+      console.error('Error:', error.response ? error.response.data : error.message);
       alert('An error occurred while submitting the form. Please try again.');
     } finally {
       actions.setSubmitting(false);
@@ -110,7 +106,8 @@ const Index = () => {
             confirmPassword: '',
           }}
           validationSchema={validationSchema}
-          onSubmit={handleSubmit}>
+          onSubmit={handleSubmit}
+        >
           {({
             isSubmitting,
             handleSubmit,
@@ -158,16 +155,6 @@ const Index = () => {
                           required
                         />
                       </FormGrid>
-                      {touched.firstName && errors.firstName && (
-                        <ErrorMessage>{errors.firstName}</ErrorMessage>
-                      )}
-                      {touched.middleName && errors.middleName && (
-                        <ErrorMessage>{errors.middleName}</ErrorMessage>
-                      )}
-                      {touched.lastName && errors.lastName && (
-                        <ErrorMessage>{errors.lastName}</ErrorMessage>
-                      )}
-
                       <FormGrid>
                         <TextInput
                           title='Phone'
@@ -200,16 +187,6 @@ const Index = () => {
                           required
                         />
                       </FormGrid>
-                      {touched.phone && errors.phone && (
-                        <ErrorMessage>{errors.phone}</ErrorMessage>
-                      )}
-                      {touched.email && errors.email && (
-                        <ErrorMessage>{errors.email}</ErrorMessage>
-                      )}
-                      {touched.confirmEmail && errors.confirmEmail && (
-                        <ErrorMessage>{errors.confirmEmail}</ErrorMessage>
-                      )}
-
                       <TextInput
                         title='Password'
                         name='password'
@@ -221,32 +198,23 @@ const Index = () => {
                         type='password'
                         required
                       />
-                      {touched.password && errors.password && (
-                        <ErrorMessage>{errors.password}</ErrorMessage>
-                      )}
-
                       <TextInput
                         title='Confirm Password'
                         name='confirmPassword'
                         placeholder='Confirm Password'
                         value={values.confirmPassword}
                         onChange={handleChange}
-                        error={
-                          touched.confirmPassword && errors.confirmPassword
-                        }
+                        error={touched.confirmPassword && errors.confirmPassword}
                         onBlur={handleBlur}
                         type='password'
                         required
                       />
-                      {touched.confirmPassword && errors.confirmPassword && (
-                        <ErrorMessage>{errors.confirmPassword}</ErrorMessage>
-                      )}
-
                       <Button
                         type='submit'
                         variant='primary'
                         size='large'
-                        disabled={isSubmitting || !dirty}>
+                        disabled={isSubmitting || !dirty}
+                      >
                         {isSubmitting ? 'Submitting...' : 'Submit'}
                       </Button>
                     </FormSection>
@@ -262,3 +230,4 @@ const Index = () => {
 };
 
 export default Index;
+    
